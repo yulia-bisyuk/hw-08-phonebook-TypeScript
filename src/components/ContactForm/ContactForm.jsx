@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import { FormLabel, FormInput, AddContactBtn } from './ContactForm.styled';
-import { addItem } from 'redux/ItemsSlice/ItemsSlice';
+import { addItem, getItemsValue } from 'redux/ContactsSlice/ContactsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 const ContactForm = () => {
   const [userName, setUserName] = useState('');
   const [userNumber, setUserNumber] = useState('');
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.items);
+  const contacts = useSelector(getItemsValue);
 
   const nameLabelId = nanoid();
   const numberLabelId = nanoid();

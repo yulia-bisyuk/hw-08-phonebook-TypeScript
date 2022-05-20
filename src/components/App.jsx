@@ -11,10 +11,12 @@ import {
   Note,
 } from './App.styled';
 import { useSelector } from 'react-redux';
+import { getItemsValue, getFilterValue } from 'redux/ContactsSlice/ContactsSlice';
+
 
 export const App = () => {
-  const contacts = useSelector(state => state.items);
-  const filter = useSelector(state => state.filter);
+  const contacts = useSelector(getItemsValue);
+  const filter = useSelector(getFilterValue);
   console.log(contacts);
 
   const getFilteredContacts = () => {

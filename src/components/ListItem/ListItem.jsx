@@ -4,7 +4,7 @@ import { ImCancelCircle } from 'react-icons/im';
 import { IconContext } from "react-icons";
 import { DeleteButton, LiItem} from './ListItem.styled';
 import { useDispatch } from 'react-redux';
-import { deleteItem } from 'redux/ItemsSlice/ItemsSlice';
+import { deleteItem } from 'redux/ContactsSlice/ContactsSlice';
 
 const ListItem = ({ id, name, number }) => {
     const dispatch = useDispatch();
