@@ -5,7 +5,6 @@ import { changeFilter } from 'redux/ContactsSlice/ContactsSlice';
 
 
 const Filter = () => {
-  
   const dispatch = useDispatch();
 
   const onChange = (e) => {
@@ -18,7 +17,7 @@ const Filter = () => {
     <FormInput
       autoComplete="off"
       type="text"
-      name="filter"
+        name="filter"
       onChange={onChange}
       required
     />

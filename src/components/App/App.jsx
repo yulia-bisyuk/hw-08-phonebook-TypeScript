@@ -1,8 +1,8 @@
-import ContactForm from './ContactForm';
-import Filter from './Filter';
-import ContactList from './ContactList';
+import ContactForm from '../ContactForm';
+import Filter from '../Filter';
+import ContactList from '../ContactList';
 import { ThemeProvider } from 'styled-components';
-import theme from '../constants/theme';
+import theme from '../../constants/theme';
 import {
   Wrapper,
   PhonebookTitle,
@@ -17,7 +17,6 @@ import { getItemsValue, getFilterValue } from 'redux/ContactsSlice/ContactsSlice
 export const App = () => {
   const contacts = useSelector(getItemsValue);
   const filter = useSelector(getFilterValue);
-  console.log(contacts);
 
   const getFilteredContacts = () => {
     return contacts.filter(contact =>
@@ -26,7 +25,6 @@ export const App = () => {
   };
 
   const filteredContacts = getFilteredContacts();
-
 
   return (
     <ThemeProvider theme={theme}>

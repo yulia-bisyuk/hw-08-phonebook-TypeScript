@@ -31,11 +31,12 @@ const ContactForm = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
-   if (contacts.some(contact => contact.name.toLowerCase() === userName.toLowerCase())
-   ) {
+    if (contacts.some(contact => contact.name.toLowerCase() === userName.toLowerCase()))
+    {
      reset();
      return alert(`${userName} is already in contacts`);
-    } else {
+    }
+    else {
       dispatch(addItem({userNumber, userName}));
     }
     
