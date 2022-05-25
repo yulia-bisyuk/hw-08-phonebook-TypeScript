@@ -1,14 +1,14 @@
 import React from 'react';
 import { FormLabel, FormInput } from '../ContactForm/ContactForm.styled';
 import { useDispatch } from 'react-redux';
-import { changeFilter } from 'redux/ContactsSlice/ContactsSlice';
+import { change } from 'redux/FilterSlice/FilterSlice';
 
 
 const Filter = () => {
   const dispatch = useDispatch();
 
   const onChange = (e) => {
-    dispatch(changeFilter(e.currentTarget.value))
+    dispatch(change(e.currentTarget.value))
   }
 
   return (

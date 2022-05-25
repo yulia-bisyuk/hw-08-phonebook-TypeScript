@@ -11,21 +11,30 @@ import {
   Note,
 } from './App.styled';
 import { useSelector } from 'react-redux';
-import { getItemsValue, getFilterValue } from 'redux/ContactsSlice/ContactsSlice';
-
+import { getFilterValue } from 'redux/FilterSlice/FilterSlice';
+import { useGetContactsQuery } from '../../redux/ContactsSlice/ContactsSlice';
 
 export const App = () => {
-  const contacts = useSelector(getItemsValue);
   const filter = useSelector(getFilterValue);
 
+  const {
+    data: contacts,
+    isFetching,
+    isError,
+    isSuccess } = useGetContactsQuery();
+  console.log(isFetching);
+  console.log(contacts);
+
   const getFilteredContacts = () => {
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
+  
+    if (isSuccess)
+      return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.trim().toLowerCase())
     );
   };
 
   const filteredContacts = getFilteredContacts();
-
+  
   return (
     <ThemeProvider theme={theme}>
       <Wrapper>
@@ -36,15 +45,19 @@ export const App = () => {
 
         <Section>
           <ContactsTitle>Contacts</ContactsTitle>
-          <Filter/>
+          <Filter />
+
+          {isError && <Note>Oops! Something went wrong...</Note>} 
+          {/* set the loader */}
+          {isFetching && <Note>Is loading...</Note>} 
+      
+          {isSuccess && filteredContacts.length === 0
+            && <Note>No matches on your request</Note>}
           
-          {filteredContacts.length === 0 ? (
-            <Note>No contacts here</Note>
-          ) : (
-            <ContactList
+          {isSuccess && <ContactList
               contacts={filteredContacts}
-            />
-          )}
+          />} 
+        
         </Section>
       </Wrapper>
     </ThemeProvider>

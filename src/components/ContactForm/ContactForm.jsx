@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import { FormLabel, FormInput, AddContactBtn } from './ContactForm.styled';
-import { addItem, getItemsValue } from 'redux/ContactsSlice/ContactsSlice';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 
 const ContactForm = () => {
   const [userName, setUserName] = useState('');
   const [userNumber, setUserNumber] = useState('');
-  const dispatch = useDispatch();
-  const contacts = useSelector(getItemsValue);
+  // const dispatch = useDispatch();
+  // const contacts = useSelector(getItemsValue); // use hook
 
   const nameLabelId = nanoid();
   const numberLabelId = nanoid();
@@ -31,14 +30,15 @@ const ContactForm = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    if (contacts.some(contact => contact.name.toLowerCase() === userName.toLowerCase()))
-    {
-     reset();
-     return alert(`${userName} is already in contacts`);
-    }
-    else {
-      dispatch(addItem({userNumber, userName}));
-    }
+    console.log('handleSubmit');
+    // if (contacts.some(contact => contact.name.toLowerCase() === userName.toLowerCase()))
+    // {
+    //  reset();
+    //  return alert(`${userName} is already in contacts`);
+    // }
+    // else {
+    //   dispatch(addItem({userNumber, userName}));
+    // }
     
     reset();
 

@@ -5,12 +5,12 @@ import { List} from './ContactList.styled';
 
 const ContactList = ({contacts}) => (
     <List>
-        {contacts.map(({ id, name, number }) => (
+        {contacts.map(({ id, name, phone }) => (
             <LiItem
                 key={id}
                 id={id}
                 name={name}
-                number={number}
+                phone={phone}
             ></LiItem>
         ))}
     </List>

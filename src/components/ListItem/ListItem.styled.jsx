@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const LiItem = styled.li`
   list-style-type: none;
-  width: 285px;
+  width: 340px;
   display: flex;
   justify-content: space-between;
   color: ${props => props.theme.darkGray};

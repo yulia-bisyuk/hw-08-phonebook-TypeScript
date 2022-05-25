@@ -3,20 +3,18 @@ import PropTypes from 'prop-types';
 import { ImCancelCircle } from 'react-icons/im';
 import { IconContext } from "react-icons";
 import { DeleteButton, LiItem} from './ListItem.styled';
-import { useDispatch } from 'react-redux';
-import { deleteItem } from 'redux/ContactsSlice/ContactsSlice';
 
-const ListItem = ({ id, name, number }) => {
-    const dispatch = useDispatch();
+const ListItem = ({ id, name, phone }) => {
+    // const dispatch = useDispatch();
 
     return (
         <LiItem
             id={id}
             key={id}>
-            {name}: {number}
+            {name}: {phone}
             <IconContext.Provider value={{ color: "#bc2525", size: "18px" }}>
-                <DeleteButton type='button'
-                    onClick={() => dispatch(deleteItem(id))}>
+                <DeleteButton type='button'>
+                    {/* // onClick={() => dispatch(deleteItem(id))}> */}
                     <ImCancelCircle />
                 </DeleteButton>
             </IconContext.Provider>
@@ -28,7 +26,7 @@ const ListItem = ({ id, name, number }) => {
 ListItem.propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    number: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
 }
 
 export default ListItem;

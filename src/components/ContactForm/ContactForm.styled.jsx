@@ -8,7 +8,7 @@ const FormLabel = styled.label`
 `
 const FormInput = styled.input`
     display: block;
-    width: 280px;
+    width: 340px;
     height: 24px;
      margin-bottom: 24px;
      margin-top: 8px;
