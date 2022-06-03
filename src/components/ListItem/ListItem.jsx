@@ -1,26 +1,55 @@
-import React from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
+import EditContactForm from 'components/EditContactForm';
 import { ImCancelCircle } from 'react-icons/im';
+import { FiEdit } from 'react-icons/fi';
 import { IconContext } from "react-icons";
-import { DeleteButton, LiItem} from './ListItem.styled';
+import { ActionButton, LiItem, ButtonsWrapper } from './ListItem.styled';
+import { useDeleteContactMutation } from '../../redux/ContactsSlice/ContactsSlice';
+
 
 const ListItem = ({ id, name, phone }) => {
-    // const dispatch = useDispatch();
+    const [editFormIsOpen, setEditFormIsOpen] = useState(false);
+    const [deleteContact] = useDeleteContactMutation();
+   
+    const handleClose = () => {
+        setEditFormIsOpen(false);
+    }
 
     return (
+        <>
         <LiItem
             id={id}
             key={id}>
             {name}: {phone}
-            <IconContext.Provider value={{ color: "#bc2525", size: "18px" }}>
-                <DeleteButton type='button'>
-                    {/* // onClick={() => dispatch(deleteItem(id))}> */}
+            <ButtonsWrapper>
+            <IconContext.Provider value={{ color: "#00420b", size: "18px" }}>
+             <ActionButton 
+             type='button'
+             onClick={() => setEditFormIsOpen(true)} >
+                    <FiEdit />
+                        </ActionButton>
+                        
+                </IconContext.Provider>
+                <IconContext.Provider value={{ color: "#bc2525", size: "18px" }}>
+                <ActionButton type='button'
+                    onClick={()=> deleteContact(id)}>
                     <ImCancelCircle />
-                </DeleteButton>
-            </IconContext.Provider>
-        </LiItem>
+                </ActionButton>
+                </IconContext.Provider>
+                </ButtonsWrapper>
+            </LiItem>
+            
+            {editFormIsOpen &&
+              <div>
+                    <EditContactForm
+                        onClose={handleClose}
+                        id={id}
+                    />
+                   </div>
+               }
+            </>
     )
-    
 };
 
 ListItem.propTypes = {

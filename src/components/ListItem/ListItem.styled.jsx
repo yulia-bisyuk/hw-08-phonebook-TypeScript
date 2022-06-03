@@ -5,17 +5,26 @@ const LiItem = styled.li`
   width: 340px;
   display: flex;
   justify-content: space-between;
-  color: ${props => props.theme.darkGray};
+  font-weight: 500;
+    font-size: 16px;
+    color: ${props => props.theme.darkBlue};
 
   &:not(:last-child) {
     margin-bottom: 8px;
   }
 `;
 
-const DeleteButton = styled.button`
+const ActionButton = styled.button`
   padding: 0;
   background-color: transparent;
   border: none;
   cursor: pointer;
+  :not(:first-child) {
+margin-left: 8px;
+  }
 `;
-export { DeleteButton, LiItem };
+const ButtonsWrapper = styled.div`
+  display: flex;
+`
+
+export { ActionButton, LiItem, ButtonsWrapper };

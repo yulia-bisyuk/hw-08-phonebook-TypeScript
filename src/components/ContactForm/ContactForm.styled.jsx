@@ -12,8 +12,10 @@ const FormInput = styled.input`
     height: 24px;
      margin-bottom: 24px;
      margin-top: 8px;
+     padding-left: 8px;
     border: 1px solid ${props => props.theme.darkBlue};
     border-radius: 5px;
+    
 `
 const AddContactBtn = styled.button`
     margin-left: auto;
@@ -36,5 +38,13 @@ const AddContactBtn = styled.button`
        transform: scale(1.08);
     }
 `
+const ErrorMessage = styled.div`
+   margin-bottom: 12px;
+    font-weight: 400;
+    font-size: 12px;
+    width: 340px;
+    color: red;
+    text-align: left;
+`
 
-export { FormLabel, FormInput, AddContactBtn };
+export { FormLabel, FormInput, AddContactBtn, ErrorMessage };

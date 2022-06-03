@@ -3,6 +3,7 @@ import Filter from '../Filter';
 import ContactList from '../ContactList';
 import { ThemeProvider } from 'styled-components';
 import theme from '../../constants/theme';
+import BeatLoader from "react-spinners/BeatLoader";
 import {
   Wrapper,
   PhonebookTitle,
@@ -22,7 +23,7 @@ export const App = () => {
     isFetching,
     isError,
     isSuccess } = useGetContactsQuery();
-  console.log(isFetching);
+
   console.log(contacts);
 
   const getFilteredContacts = () => {
@@ -48,11 +49,13 @@ export const App = () => {
           <Filter />
 
           {isError && <Note>Oops! Something went wrong...</Note>} 
-          {/* set the loader */}
-          {isFetching && <Note>Is loading...</Note>} 
+          
+          {isFetching && <Note><BeatLoader
+            color={theme.darkBlue} loading={true} size={10} margin={2} />
+          </Note>} 
       
           {isSuccess && filteredContacts.length === 0
-            && <Note>No matches on your request</Note>}
+            && <Note>No contacts here</Note>}
           
           {isSuccess && <ContactList
               contacts={filteredContacts}

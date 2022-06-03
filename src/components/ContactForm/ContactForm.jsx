@@ -1,82 +1,75 @@
-import { useState } from 'react';
-import { nanoid } from 'nanoid';
-import { FormLabel, FormInput, AddContactBtn } from './ContactForm.styled';
-// import { useDispatch, useSelector } from 'react-redux';
+import { Formik } from 'formik';
+import { validationSchema } from 'constants/validationSchema';
+import { FormLabel, FormInput, AddContactBtn, ErrorMessage } from './ContactForm.styled';
+import { useAddContactMutation, useGetContactsQuery } from '../../redux/ContactsSlice/ContactsSlice';
 
 const ContactForm = () => {
-  const [userName, setUserName] = useState('');
-  const [userNumber, setUserNumber] = useState('');
-  // const dispatch = useDispatch();
-  // const contacts = useSelector(getItemsValue); // use hook
+  
+  const [addContact] = useAddContactMutation();
+  const {data: contacts} = useGetContactsQuery();
 
-  const nameLabelId = nanoid();
-  const numberLabelId = nanoid();
-
-  const handleChange = e => {
-    const { name, value } = e.currentTarget;
-
-    switch (name) {
-      case 'userName':
-        setUserName(value);
-        break;
-      case 'userNumber':
-        setUserNumber(value);
-        break;
-      default:
-        return;
-    }
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
-
-    console.log('handleSubmit');
-    // if (contacts.some(contact => contact.name.toLowerCase() === userName.toLowerCase()))
-    // {
-    //  reset();
-    //  return alert(`${userName} is already in contacts`);
-    // }
-    // else {
-    //   dispatch(addItem({userNumber, userName}));
-    // }
+  const handleSubmit = async ({userName, userNumber}, {resetForm}) => {
     
-    reset();
+    if (contacts.some(contact => contact.name.toLowerCase() === userName.toLowerCase()))
+    {
+      resetForm();
+      return alert(`${userName} is already in contacts`);
+    }
 
-  };
+    try {
+      await addContact({ name: userName, phone: userNumber });
+    }
+    catch (error) {
+      console.log(error);
+    }
 
-  const reset = () => {
-    setUserName('');
-    setUserNumber('');
+   resetForm();
+
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <FormLabel htmlFor={nameLabelId}>
-        Name
-        <FormInput
-          type="text"
-          name="userName"
-          value={userName}
-          onChange={handleChange}
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          required
-        />
-      </FormLabel>
-      <FormLabel htmlFor={numberLabelId}>
-        Number
-        <FormInput
-          type="tel"
-          name="userNumber"
-          value={userNumber}
-          onChange={handleChange}
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
-        />
-      </FormLabel>
-      <AddContactBtn type="submit">Add contact</AddContactBtn>
-    </form>
+    
+    <Formik
+      initialValues={{ userName: '', userNumber: '' }}
+      validationSchema={validationSchema}
+      onSubmit={(values, actions) => handleSubmit(values, actions)}
+    >
+      {formik => (
+        <form onSubmit={formik.handleSubmit}>
+
+        <FormLabel htmlFor="userName">
+          Name
+            <FormInput
+              id="userName"
+              name="userName"
+              type="text"
+              {...formik.getFieldProps('userName')}
+            />
+            {formik.touched.userName && formik.errors.userName ? (
+             <ErrorMessage>{formik.errors.userName}</ErrorMessage>
+           ) : null}
+          </FormLabel>
+          
+          <FormLabel htmlFor="userNumber">
+            Number
+              <FormInput
+                id="userNumber"
+                name="userNumber"
+                type="text"
+                {...formik.getFieldProps('userNumber')}
+            />
+            {formik.touched.userNumber && formik.errors.userNumber ? (
+             <ErrorMessage>{formik.errors.userNumber}</ErrorMessage>
+           ) : null}
+          </FormLabel>
+
+        <AddContactBtn type="submit">Add contact</AddContactBtn>
+ 
+      </form>
+      )}
+      
+      </Formik>
+
   );
 };
 
