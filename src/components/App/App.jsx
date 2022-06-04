@@ -24,8 +24,6 @@ export const App = () => {
     isError,
     isSuccess } = useGetContactsQuery();
 
-  console.log(contacts);
-
   const getFilteredContacts = () => {
   
     if (isSuccess)

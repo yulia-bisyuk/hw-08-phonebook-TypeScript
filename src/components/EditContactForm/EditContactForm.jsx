@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import { validationSchema } from 'constants/validationSchema';
 import { useGetContactByIdQuery, useEditContactMutation } from 'redux/ContactsSlice/ContactsSlice';
-import { InputsWrapper, FormLabel, FormInput, ButtonsWrapper, CancelButton, ConfirmButton, ErrorMessage } from './EditContactForm.styled';
+import { InputsWrapper, FormLabel, FormInput, ButtonsWrapper, CancelButton, ConfirmButton } from './EditContactForm.styled';
+import { ErrorMessage } from '../ContactForm/ContactForm.styled';
 
 const EditContactForm = ({ id, onClose }) => {
     const [editContact] = useEditContactMutation();

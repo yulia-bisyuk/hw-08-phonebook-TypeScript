@@ -43,14 +43,4 @@ const ConfirmButton = styled.button`
     cursor: pointer;
 `
 
-const ErrorMessage = styled.div`
-   margin-bottom: 12px;
-    font-weight: 400;
-    font-size: 12px;
-    width: 340px;
-    color: red;
-    text-align: left;
-`
-
-
-export { InputsWrapper, FormLabel, FormInput, ButtonsWrapper, CancelButton, ConfirmButton, ErrorMessage };
+export { InputsWrapper, FormLabel, FormInput, ButtonsWrapper, CancelButton, ConfirmButton };
