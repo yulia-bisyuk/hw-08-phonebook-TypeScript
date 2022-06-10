@@ -1,8 +1,8 @@
 {
-  "name": "goit-react-hw-07-phonebook",
+  "name": "goit-react-hw-08-phonebook",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://yulia-bisyuk.github.io/goit-react-hw-07-phonebook/",
+  "homepage": "https://yulia-bisyuk.github.io/goit-react-hw-08-phonebook/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^5.16.3",
@@ -49,7 +49,7 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^8.15.0",
+    "eslint": "^8.17.0",
     "husky": "^8.0.1",
     "lint-staged": "^12.4.1",
     "prettier": "^2.6.2"
