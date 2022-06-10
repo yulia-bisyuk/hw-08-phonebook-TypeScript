@@ -1,66 +1,31 @@
-import ContactForm from '../ContactForm';
-import Filter from '../Filter';
-import ContactList from '../ContactList';
-import { ThemeProvider } from 'styled-components';
-import theme from '../../constants/theme';
-import BeatLoader from "react-spinners/BeatLoader";
-import {
-  Wrapper,
-  PhonebookTitle,
-  ContactsTitle,
-  Section,
-  Note,
-} from './App.styled';
-import { useSelector } from 'react-redux';
-import { getFilterValue } from 'redux/FilterSlice/FilterSlice';
-import { useGetContactsQuery } from '../../redux/ContactsSlice/ContactsSlice';
+import { lazy, Suspense } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import BeatLoader from 'react-spinners/BeatLoader';
+import HomePage from 'pages/HomePage';
+import LoginPage from 'pages/LoginPage';
+import ContactsPage from 'pages/ContactsPage';
+import RegistrationPage from 'pages/RegistrationPage';
+import Layout from 'components/Layout';
 
 export const App = () => {
-  const filter = useSelector(getFilterValue);
-
-  const {
-    data: contacts,
-    isFetching,
-    isError,
-    isSuccess } = useGetContactsQuery();
-
-  const getFilteredContacts = () => {
-  
-    if (isSuccess)
-      return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.trim().toLowerCase())
-    );
-  };
-
-  const filteredContacts = getFilteredContacts();
-  
   return (
-    <ThemeProvider theme={theme}>
-      <Wrapper>
-        <Section>
-          <PhonebookTitle>Phonebook</PhonebookTitle>
-          <ContactForm/>
-        </Section>
-
-        <Section>
-          <ContactsTitle>Contacts</ContactsTitle>
-          <Filter />
-
-          {isError && <Note>Oops! Something went wrong...</Note>} 
-          
-          {isFetching && <Note><BeatLoader
-            color={theme.darkBlue} loading={true} size={10} margin={2} />
-          </Note>} 
-      
-          {isSuccess && filteredContacts.length === 0
-            && <Note>No contacts here</Note>}
-          
-          {isSuccess && <ContactList
-              contacts={filteredContacts}
-          />} 
+    <Suspense fallback={<BeatLoader color='blue' loading={true} size={10} margin={2} />}>
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route index element={<HomePage />} />
+          {/* public route */}
+        <Route  path='register' element={<RegistrationPage />} />
         
-        </Section>
-      </Wrapper>
-    </ThemeProvider>
+          {/* public route */}
+        <Route path='login' element={<LoginPage />} /> 
+
+          {/* private route */}
+        <Route path='contacts' element={<ContactsPage />} />
+    
+        </Route>
+        
+
+      </Routes>
+    </Suspense>
   );
 };

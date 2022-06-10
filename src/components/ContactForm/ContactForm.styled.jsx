@@ -17,7 +17,7 @@ const FormInput = styled.input`
     border-radius: 5px;
     
 `
-const AddContactBtn = styled.button`
+const SubmitBtn = styled.button`
     margin-left: auto;
     margin-right: auto;
     display: block;
@@ -47,4 +47,4 @@ const ErrorMessage = styled.div`
     text-align: left;
 `
 
-export { FormLabel, FormInput, AddContactBtn, ErrorMessage };
+export { FormLabel, FormInput, SubmitBtn, ErrorMessage };

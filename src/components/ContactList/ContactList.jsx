@@ -1,12 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useGetContactsQuery } from '../../redux/ContactsSlice/ContactsSlice';
+import { useSelector } from 'react-redux';
+import { getFilterValue } from 'redux/FilterSlice/FilterSlice';
 import LiItem from '../ListItem';
 import { List} from './ContactList.styled';
 
-const ContactList = ({ contacts }) => (
+const ContactList = () => {
+
+     const filter = useSelector(getFilterValue);
+
+    const {
+    data: contacts, isSuccess } = useGetContactsQuery();
+    
+    const getFilteredContacts = () => {
   
-    <List>
-        {contacts.map(({ id, name, phone }) => (
+    if (isSuccess)
+      return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.trim().toLowerCase())
+    );
+  };
+
+  const filteredContacts = getFilteredContacts();
+
+
+    return (
+        <List>
+        {filteredContacts.map(({ id, name, phone }) => (
             <LiItem
                 key={id}
                 id={id}
@@ -15,11 +35,8 @@ const ContactList = ({ contacts }) => (
             ></LiItem>
         ))}
         </List>
-        
-)
+    )
 
-ContactList.propTypes = {
-    contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
 export default ContactList;

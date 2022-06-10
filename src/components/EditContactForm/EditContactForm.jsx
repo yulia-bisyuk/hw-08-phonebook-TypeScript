@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
-import { validationSchema } from 'constants/validationSchema';
+import { contactValidationSchema } from 'constants/contactValidationSchema';
 import { useGetContactByIdQuery, useEditContactMutation } from 'redux/ContactsSlice/ContactsSlice';
 import { InputsWrapper, FormLabel, FormInput, ButtonsWrapper, CancelButton, ConfirmButton } from './EditContactForm.styled';
 import { ErrorMessage } from '../ContactForm/ContactForm.styled';
@@ -9,11 +9,11 @@ const EditContactForm = ({ id, onClose }) => {
     const [editContact] = useEditContactMutation();
     const { data: contact } = useGetContactByIdQuery(id);
 
-    const handleSubmit = ({userName, userNumber}) => {
+    const handleSubmit = ({contactName, contactNumber}) => {
      
         editContact({ id: id, 
-            name: userName,
-            phone: userNumber
+            name: contactName,
+            phone: contactNumber
         });
         
         onClose();
@@ -22,43 +22,43 @@ const EditContactForm = ({ id, onClose }) => {
     return (
       contact &&
              <Formik
-      initialValues={{ userName: contact.name, userNumber: contact.phone }}
-      validationSchema={validationSchema}
+      initialValues={{ contactName: contact.name, contactNumber: contact.phone }}
+      validationSchema={contactValidationSchema}
       onSubmit={(values) => handleSubmit(values)}
     >
             {
                     formik => (
                         <form onSubmit={formik.handleSubmit}>
                     <InputsWrapper>
-                        <FormLabel htmlFor="userName">
+                        <FormLabel htmlFor="contactName">
                             Name
                         <FormInput
-                        id="userName"
-                        name="userName"
+                        id="contactName"
+                        name="contactName"
                         type="text"
                     
-                        {...formik.getFieldProps('userName')}
+                        {...formik.getFieldProps('contactName')}
                         />
                         </FormLabel>
                             <div>
-                {formik.touched.userName && formik.errors.userName ? (
-                <ErrorMessage>{formik.errors.userName}</ErrorMessage>
+                {formik.touched.contactName && formik.errors.contactName ? (
+                <ErrorMessage>{formik.errors.contactName}</ErrorMessage>
             ) : null}
                             </div>
                         
-                        <FormLabel htmlFor="userNumber">
+                        <FormLabel htmlFor="contactNumber">
                             Number
                         <FormInput
-                            id="userNumber"
-                            name="userNumber"
+                            id="contactNumber"
+                            name="contactNumber"
                             type="text"
                         
-                            {...formik.getFieldProps('userNumber')}
+                            {...formik.getFieldProps('contactNumber')}
                             />
                         </FormLabel>
                         <div>
-                            {formik.touched.userNumber && formik.errors.userNumber ? (
-             <ErrorMessage>{formik.errors.userNumber}</ErrorMessage>
+                            {formik.touched.contactNumber && formik.errors.contactNumber ? (
+             <ErrorMessage>{formik.errors.contactNumber}</ErrorMessage>
            ) : null}
                         </div>
 
