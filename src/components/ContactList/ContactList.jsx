@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import LiItem from '../ListItem';
 import { List} from './ContactList.styled';
 
-const ContactList = ({contacts}) => (
+const ContactList = ({ contacts }) => (
+  
     <List>
         {contacts.map(({ id, name, phone }) => (
             <LiItem
@@ -13,7 +14,8 @@ const ContactList = ({contacts}) => (
                 phone={phone}
             ></LiItem>
         ))}
-    </List>
+        </List>
+        
 )
 
 ContactList.propTypes = {
