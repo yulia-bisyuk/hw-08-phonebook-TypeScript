@@ -1,6 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { useGetContactsQuery } from '../../redux/ContactsSlice/ContactsSlice';
+import { useGetContactsQuery } from '../../redux/ContactsOperations/ContactsOperations';
 import { useSelector } from 'react-redux';
 import { getFilterValue } from 'redux/FilterSlice/FilterSlice';
 import LiItem from '../ListItem';

@@ -10,7 +10,7 @@ import {
   Section,
   Note,
 } from './ContactsPage.styled';
-import { useGetContactsQuery } from '../../redux/ContactsSlice/ContactsSlice';
+import { useGetContactsQuery } from '../../redux/ContactsOperations/ContactsOperations';
 
 const ContactsPage = () => {
     

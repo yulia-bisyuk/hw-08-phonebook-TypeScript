@@ -5,7 +5,7 @@ import { ImCancelCircle } from 'react-icons/im';
 import { FiEdit } from 'react-icons/fi';
 import { IconContext } from "react-icons";
 import { ActionButton, LiItem, ButtonsWrapper } from './ListItem.styled';
-import { useDeleteContactMutation } from '../../redux/ContactsSlice/ContactsSlice';
+import { useDeleteContactMutation } from '../../redux/ContactsOperations/ContactsOperations';
 
 
 const ListItem = ({ id, name, phone }) => {

@@ -8,6 +8,7 @@ import RegistrationPage from 'pages/RegistrationPage';
 import Layout from 'components/Layout';
 
 export const App = () => {
+
   return (
     <Suspense fallback={<BeatLoader color='blue' loading={true} size={10} margin={2} />}>
       <Routes>

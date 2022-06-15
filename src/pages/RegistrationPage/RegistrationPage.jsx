@@ -6,15 +6,32 @@ import { FaUserPlus } from 'react-icons/fa';
 import { IconContext } from "react-icons";
 import { FormLabel, FormInput, SubmitBtn, ErrorMessage } from '../../components/ContactForm/ContactForm.styled';
 import { PageWrapper, PageTitle, IconWrapper } from 'pages/HomePage/HomePage.styled';
-
+import { useCreateUserMutation } from '../../redux/AuthOperations/AuthOperations';
+import { addUser } from 'redux/AuthSlice/AuthSlice';
+import { useDispatch } from 'react-redux';
 
 const RegistrationPage = () => {
+    const dispatch = useDispatch();
+    const [createUser] = useCreateUserMutation();
 
-    const handleSubmit = (values, {resetForm}) => {
+    const handleSubmit = async (values, { resetForm }) => {
         console.log('values');
         console.log(values);
+        
+        try {
+    
+            await createUser(values)
+                // .then(data => console.log(data))
+                .then(data => dispatch(addUser(data)));
+        }
+        catch (error) {
+            console.log(error);
+        }
+     
         resetForm();
-}
+    };
+
+
 
     return (
         <PageWrapper>
@@ -26,7 +43,7 @@ const RegistrationPage = () => {
                     </IconContext.Provider>
                     </IconWrapper>
        <Formik
-      initialValues={{ userName: '', userEmail: '', userPassword: '' }}
+      initialValues={{ name: '', email: '', password: '' }}
       validationSchema={userValidationSchema}
       onSubmit={(values, actions) => handleSubmit(values, actions)}
     >
@@ -34,42 +51,42 @@ const RegistrationPage = () => {
                    
         <form onSubmit={formik.handleSubmit}>
 
-        <FormLabel htmlFor="userName">
+        <FormLabel htmlFor="name">
           Name
             <FormInput
-              id="userName"
-              name="userName"
+              id="name"
+              name="name"
               type="text"
-              {...formik.getFieldProps('userName')}
+              {...formik.getFieldProps('name')}
             />
-            {formik.touched.userName && formik.errors.userName ? (
-             <ErrorMessage>{formik.errors.userName}</ErrorMessage>
+            {formik.touched.name && formik.errors.name ? (
+             <ErrorMessage>{formik.errors.name}</ErrorMessage>
            ) : null}
           </FormLabel>
           
-          <FormLabel htmlFor="userEmail">
+          <FormLabel htmlFor="email">
             Email
               <FormInput
-                id="userEmail"
-                name="userEmail"
+                id="email"
+                name="email"
                 type="email"
-                {...formik.getFieldProps('userEmail')}
+                {...formik.getFieldProps('email')}
             />
-            {formik.touched.userEmail && formik.errors.userEmail ? (
-             <ErrorMessage>{formik.errors.userEmail}</ErrorMessage>
+            {formik.touched.email && formik.errors.email ? (
+             <ErrorMessage>{formik.errors.email}</ErrorMessage>
            ) : null}
                         </FormLabel>
                         
-                        <FormLabel htmlFor="userPassword">
+                        <FormLabel htmlFor="password">
             Password
               <FormInput
-                id="userPassword"
-                name="userPassword"
+                id="password"
+                name="password"
                 type="password"
-                {...formik.getFieldProps('userPassword')}
+                {...formik.getFieldProps('password')}
             />
-            {formik.touched.userPassword && formik.errors.userPassword ? (
-             <ErrorMessage>{formik.errors.userPassword}</ErrorMessage>
+            {formik.touched.password && formik.errors.password ? (
+             <ErrorMessage>{formik.errors.password}</ErrorMessage>
            ) : null}
           </FormLabel>
 

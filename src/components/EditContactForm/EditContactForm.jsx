@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import { contactValidationSchema } from 'constants/contactValidationSchema';
-import { useGetContactByIdQuery, useEditContactMutation } from 'redux/ContactsSlice/ContactsSlice';
+import { useGetContactByIdQuery, useEditContactMutation } from 'redux/ContactsOperations/ContactsOperations';
 import { InputsWrapper, FormLabel, FormInput, ButtonsWrapper, CancelButton, ConfirmButton } from './EditContactForm.styled';
 import { ErrorMessage } from '../ContactForm/ContactForm.styled';
 
@@ -28,7 +28,7 @@ const EditContactForm = ({ id, onClose }) => {
     >
             {
                     formik => (
-                        <form onSubmit={formik.handleSubmit}>
+                        <form onSubmit={formik.handleSubmit} autocomplete='off'>
                     <InputsWrapper>
                         <FormLabel htmlFor="contactName">
                             Name

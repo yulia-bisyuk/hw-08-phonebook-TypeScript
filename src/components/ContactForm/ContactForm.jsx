@@ -2,7 +2,7 @@ import { Formik } from 'formik';
 import { contactValidationSchema } from 'constants/contactValidationSchema';
 
 import { FormLabel, FormInput, SubmitBtn, ErrorMessage } from './ContactForm.styled';
-import { useAddContactMutation, useGetContactsQuery } from '../../redux/ContactsSlice/ContactsSlice';
+import { useAddContactMutation, useGetContactsQuery } from '../../redux/ContactsOperations/ContactsOperations';
 
 const ContactForm = () => {
   
