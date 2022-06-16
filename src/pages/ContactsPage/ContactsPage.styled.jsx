@@ -19,7 +19,7 @@ const Section = styled.div`
     margin-bottom: 48px;
   }
 `
-const Note = styled.p`
+const Note = styled.div`
     text-align: center;
     color: ${props => props.theme.lightGray};
 `

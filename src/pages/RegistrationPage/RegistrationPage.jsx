@@ -12,8 +12,8 @@ import { useDispatch } from 'react-redux';
 
 const RegistrationPage = () => {
     const dispatch = useDispatch();
-    const [createUser] = useCreateUserMutation();
-
+  const [createUser] = useCreateUserMutation();
+ 
     const handleSubmit = async (values, { resetForm }) => {
         console.log('values');
         console.log(values);
@@ -26,9 +26,10 @@ const RegistrationPage = () => {
         }
         catch (error) {
             console.log(error);
-        }
+      };
      
-        resetForm();
+      resetForm();
+      
     };
 
 

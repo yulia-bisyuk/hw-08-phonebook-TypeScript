@@ -5,16 +5,18 @@ export const authApi = createApi({
 //записати в стейт нового юзера і спробувати знов
     baseQuery: fetchBaseQuery({
         baseUrl: 'https://connections-api.herokuapp.com',
-//          prepareHeaders: (headers, { getState }) => {
-//     const token = getState().auth.token
-//              console.log(token);
+         prepareHeaders: async (headers, { getState }) => {
+    const token =  await getState().token
+             console.log(token);
+             const user =  await getState().auth.user
+             console.log(user);
              
-//     // If we have a token set in state, let's assume that we should be passing it.
-//     if (token) {
-//       headers.set('authorization', `Bearer ${token}`)
-//     }
-//     return headers
-//   },
+    // If we have a token set in state, let's assume that we should be passing it.
+    if (token) {
+      headers.set('authorization', `Bearer ${token}`)
+    }
+    return headers
+  },
     }),
     tagTypes: ['User'],
 

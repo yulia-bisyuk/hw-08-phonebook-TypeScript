@@ -1,16 +1,18 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import BeatLoader from 'react-spinners/BeatLoader';
-import HomePage from 'pages/HomePage';
-import LoginPage from 'pages/LoginPage';
-import ContactsPage from 'pages/ContactsPage';
-import RegistrationPage from 'pages/RegistrationPage';
-import Layout from 'components/Layout';
+import { Note } from 'pages/ContactsPage/ContactsPage.styled';
+
+const HomePage = lazy(() => import('pages/HomePage'));
+const LoginPage = lazy(() => import('pages/LoginPage'));
+const ContactsPage = lazy(() => import('pages/ContactsPage'));
+const RegistrationPage = lazy(() => import('pages/RegistrationPage'));
+const Layout = lazy(() => import('components/Layout'));
 
 export const App = () => {
 
   return (
-    <Suspense fallback={<BeatLoader color='blue' loading={true} size={10} margin={2} />}>
+    <Suspense fallback={<Note><BeatLoader color='#0c005a' loading={true} size={20} margin={2} /></Note>}>
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<HomePage />} />
