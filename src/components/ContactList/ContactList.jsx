@@ -24,12 +24,12 @@ const ContactList = () => {
 
     return (
         <List>
-        {filteredContacts.map(({ id, name, phone }) => (
+        {filteredContacts && filteredContacts.map(({ id, name, number }) => (
             <LiItem
                 key={id}
                 id={id}
                 name={name}
-                phone={phone}
+                phone={number}
             ></LiItem>
         ))}
         </List>

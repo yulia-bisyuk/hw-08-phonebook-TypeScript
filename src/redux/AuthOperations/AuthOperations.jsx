@@ -2,15 +2,12 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const authApi = createApi({
     reducerPath: 'authApi',
-//записати в стейт нового юзера і спробувати знов
+
     baseQuery: fetchBaseQuery({
         baseUrl: 'https://connections-api.herokuapp.com',
-         prepareHeaders: async (headers, { getState }) => {
-    const token =  await getState().token
+         prepareHeaders: (headers, { getState }) => {
+    const token = getState().auth.token
              console.log(token);
-             const user =  await getState().auth.user
-             console.log(user);
-             
     // If we have a token set in state, let's assume that we should be passing it.
     if (token) {
       headers.set('authorization', `Bearer ${token}`)
@@ -20,9 +17,9 @@ export const authApi = createApi({
     }),
     tagTypes: ['User'],
 
-    endpoints: (build) => ({
+    endpoints: (builder) => ({
 
-        createUser: build.mutation({
+        registration: builder.mutation({
             query: (value) => ({
         url: `/users/signup`,
         method: 'POST',
@@ -30,10 +27,37 @@ export const authApi = createApi({
             }),
             invalidatesTags: ['User'],
         }),
+        
+
+        logIn: builder.mutation({
+            query: (value) => ({
+        url: `/users/login`,
+        method: 'POST',
+        body: value,
+            }),
+            invalidatesTags: ['User'],
+        }),
+
+        logOut: builder.mutation({
+            query: (token) => ({
+        url: `/users/logout`,
+        method: 'POST',
+       
+            }),
+            invalidatesTags: ['User'],
+        }),
+
+        // fetchCurrentUser: builder.query({
+        //     query: () => ({ url: `users/current` }),
+        //     providesTags: ['User'],
+        // }),
 
         }),
     });
 
 export const {
-    useCreateUserMutation,
+    useRegistrationMutation,
+    useLogInMutation,
+    useLogOutMutation,
+    // useFetchCurrentUserQuery,
 } = authApi;

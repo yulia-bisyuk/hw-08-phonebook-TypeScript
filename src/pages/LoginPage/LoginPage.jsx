@@ -6,14 +6,19 @@ import { FaUserCheck } from 'react-icons/fa';
 import { IconContext } from "react-icons";
 import { FormLabel, FormInput, SubmitBtn, ErrorMessage } from '../../components/ContactForm/ContactForm.styled';
 import { PageWrapper, PageTitle, IconWrapper } from 'pages/HomePage/HomePage.styled';
-
+import { useLogInMutation } from 'redux/AuthOperations/AuthOperations';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
+  const [logIn] = useLogInMutation();
+  const navigate = useNavigate();
 
     const handleSubmit = (values, {resetForm}) => {
-        console.log('values');
-        console.log(values);
-        resetForm();
+      
+      logIn(values);
+      resetForm();
+      navigate('/contacts');
+
 }
 
     return (
@@ -26,7 +31,7 @@ const LoginPage = () => {
                     </IconContext.Provider>
                     </IconWrapper>
        <Formik
-      initialValues={{ userEmail: '', userPassword: '' }}
+      initialValues={{ email: '', password: '' }}
       validationSchema={userLoginValidationSchema}
       onSubmit={(values, actions) => handleSubmit(values, actions)}
     >
@@ -34,29 +39,29 @@ const LoginPage = () => {
                    
         <form onSubmit={formik.handleSubmit}>
 
-          <FormLabel htmlFor="userEmail">
+          <FormLabel htmlFor="email">
             Email
               <FormInput
-                id="userEmail"
-                name="userEmail"
+                id="email"
+                name="email"
                 type="email"
-                {...formik.getFieldProps('userEmail')}
+                {...formik.getFieldProps('email')}
             />
-            {formik.touched.userEmail && formik.errors.userEmail ? (
-             <ErrorMessage>{formik.errors.userEmail}</ErrorMessage>
+            {formik.touched.email && formik.errors.email ? (
+             <ErrorMessage>{formik.errors.email}</ErrorMessage>
            ) : null}
                         </FormLabel>
                         
-                        <FormLabel htmlFor="userPassword">
+                        <FormLabel htmlFor="password">
             Password
               <FormInput
-                id="userPassword"
-                name="userPassword"
+                id="password"
+                name="password"
                 type="password"
-                {...formik.getFieldProps('userPassword')}
+                {...formik.getFieldProps('password')}
             />
-            {formik.touched.userPassword && formik.errors.userPassword ? (
-             <ErrorMessage>{formik.errors.userPassword}</ErrorMessage>
+            {formik.touched.password && formik.errors.password ? (
+             <ErrorMessage>{formik.errors.password}</ErrorMessage>
            ) : null}
           </FormLabel>
 

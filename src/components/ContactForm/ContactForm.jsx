@@ -1,29 +1,35 @@
 import { Formik } from 'formik';
 import { contactValidationSchema } from 'constants/contactValidationSchema';
-
+import { useSelector } from "react-redux";
 import { FormLabel, FormInput, SubmitBtn, ErrorMessage } from './ContactForm.styled';
 import { useAddContactMutation, useGetContactsQuery } from '../../redux/ContactsOperations/ContactsOperations';
+import { getToken } from '../../redux/AuthSlice/AuthSlice';
+
 
 const ContactForm = () => {
-  
+  const token = useSelector(getToken);
   const [addContact] = useAddContactMutation();
   const {data: contacts} = useGetContactsQuery();
 
-  const handleSubmit = async ({ contactName, contactNumber }, { resetForm }) => {
+  const handleSubmit = (values, { resetForm }) => {
     
     
-    if (contacts.some(contact => contact.name.toLowerCase() === contactName.toLowerCase()))
+    if (contacts.some(contact => contact.name.toLowerCase() === values.name.toLowerCase()))
     {
       resetForm();
-      return alert(`${contactName} is already in contacts`);
+      return alert(`${values.name} is already in contacts`);
     }
+    console.log('addContact');
+    console.log(values);
+    console.log(token);
 
-    try {
-      await addContact({ name: contactName, phone: contactNumber });
-    }
-    catch (error) {
-      console.log(error);
-    }
+
+    addContact({ token: token, name: values.name, number: values.number});
+    // { id: id, 
+    //         name: contactName,
+    //         phone: contactNumber
+    //     }
+   
 
    resetForm();
 
@@ -32,7 +38,7 @@ const ContactForm = () => {
   return (
     
     <Formik
-      initialValues={{ contactName: '', contactNumber: '' }}
+      initialValues={{ name: '', number: '' }}
       validationSchema={contactValidationSchema}
       onSubmit={(values, actions) => handleSubmit(values, actions)}
     >
@@ -40,29 +46,29 @@ const ContactForm = () => {
 
         <form onSubmit={formik.handleSubmit}>
 
-        <FormLabel htmlFor="contactName">
+        <FormLabel htmlFor="name">
           Name
             <FormInput
-              id="contactName"
-              name="contactName"
+              id="name"
+              name="name"
               type="text"
-              {...formik.getFieldProps('contactName')}
+              {...formik.getFieldProps('name')}
             />
-            {formik.touched.contactName && formik.errors.contactName ? (
-             <ErrorMessage>{formik.errors.contactName}</ErrorMessage>
+            {formik.touched.name && formik.errors.name ? (
+             <ErrorMessage>{formik.errors.name}</ErrorMessage>
            ) : null}
           </FormLabel>
           
-          <FormLabel htmlFor="contactNumber">
+          <FormLabel htmlFor="number">
             Number
               <FormInput
-                id="contactNumber"
-                name="contactNumber"
+                id="number"
+                name="number"
                 type="text"
-                {...formik.getFieldProps('contactNumber')}
+                {...formik.getFieldProps('number')}
             />
-            {formik.touched.contactNumber && formik.errors.contactNumber ? (
-             <ErrorMessage>{formik.errors.contactNumber}</ErrorMessage>
+            {formik.touched.number && formik.errors.number ? (
+             <ErrorMessage>{formik.errors.number}</ErrorMessage>
            ) : null}
           </FormLabel>
 

@@ -5,12 +5,16 @@ import { ImCancelCircle } from 'react-icons/im';
 import { FiEdit } from 'react-icons/fi';
 import { IconContext } from "react-icons";
 import { ActionButton, LiItem, ButtonsWrapper } from './ListItem.styled';
+
 import { useDeleteContactMutation } from '../../redux/ContactsOperations/ContactsOperations';
+import { getToken } from 'redux/AuthSlice/AuthSlice';
+import { useSelector } from 'react-redux';
 
 
 const ListItem = ({ id, name, phone }) => {
     const [editFormIsOpen, setEditFormIsOpen] = useState(false);
     const [deleteContact] = useDeleteContactMutation();
+    const token = useSelector(getToken);
    
     const handleClose = () => {
         setEditFormIsOpen(false);
@@ -33,7 +37,7 @@ const ListItem = ({ id, name, phone }) => {
                 </IconContext.Provider>
                 <IconContext.Provider value={{ color: "#bc2525", size: "18px" }}>
                 <ActionButton type='button'
-                    onClick={()=> deleteContact(id)}>
+                    onClick={()=> deleteContact({contactId: id, token: token})}>
                     <ImCancelCircle />
                 </ActionButton>
                 </IconContext.Provider>

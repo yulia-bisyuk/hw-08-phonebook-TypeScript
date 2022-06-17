@@ -1,19 +1,29 @@
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import { contactValidationSchema } from 'constants/contactValidationSchema';
-import { useGetContactByIdQuery, useEditContactMutation } from 'redux/ContactsOperations/ContactsOperations';
+import { useGetContactsQuery, useEditContactMutation } from 'redux/ContactsOperations/ContactsOperations';
 import { InputsWrapper, FormLabel, FormInput, ButtonsWrapper, CancelButton, ConfirmButton } from './EditContactForm.styled';
 import { ErrorMessage } from '../ContactForm/ContactForm.styled';
+import { useSelector } from 'react-redux';
+import { getToken } from 'redux/AuthSlice/AuthSlice';
 
 const EditContactForm = ({ id, onClose }) => {
     const [editContact] = useEditContactMutation();
-    const { data: contact } = useGetContactByIdQuery(id);
+    const { data: contacts } = useGetContactsQuery();
+    // const { data: contact } = useGetContactByIdQuery(id);
+    const token = useSelector(getToken);
+    const contact = contacts.find(contact => contact.id === id);
 
-    const handleSubmit = ({contactName, contactNumber}) => {
-     
-        editContact({ id: id, 
-            name: contactName,
-            phone: contactNumber
+
+    const handleSubmit = (values) => {
+        console.log('Edit submit');
+        console.log(values);
+        
+        editContact({
+            contactId: id, 
+            token: token,
+            name: values.name,
+            number: values.number
         });
         
         onClose();
@@ -22,43 +32,43 @@ const EditContactForm = ({ id, onClose }) => {
     return (
       contact &&
              <Formik
-      initialValues={{ contactName: contact.name, contactNumber: contact.phone }}
+      initialValues={{ name: contact.name, number: contact.number }}
       validationSchema={contactValidationSchema}
       onSubmit={(values) => handleSubmit(values)}
     >
             {
                     formik => (
-                        <form onSubmit={formik.handleSubmit} autocomplete='off'>
+                        <form onSubmit={formik.handleSubmit} autoComplete='off'>
                     <InputsWrapper>
-                        <FormLabel htmlFor="contactName">
+                        <FormLabel htmlFor="name">
                             Name
                         <FormInput
-                        id="contactName"
-                        name="contactName"
+                        id="name"
+                        name="name"
                         type="text"
                     
-                        {...formik.getFieldProps('contactName')}
+                        {...formik.getFieldProps('name')}
                         />
                         </FormLabel>
                             <div>
-                {formik.touched.contactName && formik.errors.contactName ? (
-                <ErrorMessage>{formik.errors.contactName}</ErrorMessage>
+                {formik.touched.name && formik.errors.name ? (
+                <ErrorMessage>{formik.errors.name}</ErrorMessage>
             ) : null}
                             </div>
                         
-                        <FormLabel htmlFor="contactNumber">
+                        <FormLabel htmlFor="number">
                             Number
                         <FormInput
-                            id="contactNumber"
-                            name="contactNumber"
+                            id="number"
+                            name="number"
                             type="text"
                         
-                            {...formik.getFieldProps('contactNumber')}
+                            {...formik.getFieldProps('number')}
                             />
                         </FormLabel>
                         <div>
-                            {formik.touched.contactNumber && formik.errors.contactNumber ? (
-             <ErrorMessage>{formik.errors.contactNumber}</ErrorMessage>
+                            {formik.touched.number && formik.errors.number ? (
+             <ErrorMessage>{formik.errors.number}</ErrorMessage>
            ) : null}
                         </div>
 

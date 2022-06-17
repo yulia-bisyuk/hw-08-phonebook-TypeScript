@@ -6,28 +6,17 @@ import { FaUserPlus } from 'react-icons/fa';
 import { IconContext } from "react-icons";
 import { FormLabel, FormInput, SubmitBtn, ErrorMessage } from '../../components/ContactForm/ContactForm.styled';
 import { PageWrapper, PageTitle, IconWrapper } from 'pages/HomePage/HomePage.styled';
-import { useCreateUserMutation } from '../../redux/AuthOperations/AuthOperations';
-import { addUser } from 'redux/AuthSlice/AuthSlice';
-import { useDispatch } from 'react-redux';
+import { useRegistrationMutation } from '../../redux/AuthOperations/AuthOperations';
 
 const RegistrationPage = () => {
-    const dispatch = useDispatch();
-  const [createUser] = useCreateUserMutation();
+  const [registerUser] = useRegistrationMutation();
  
-    const handleSubmit = async (values, { resetForm }) => {
+    const handleSubmit = (values, { resetForm }) => {
         console.log('values');
-        console.log(values);
-        
-        try {
-    
-            await createUser(values)
-                // .then(data => console.log(data))
-                .then(data => dispatch(addUser(data)));
-        }
-        catch (error) {
-            console.log(error);
-      };
+      console.log(values);
      
+      registerUser(values);
+      
       resetForm();
       
     };
