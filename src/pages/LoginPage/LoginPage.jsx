@@ -7,17 +7,17 @@ import { IconContext } from "react-icons";
 import { FormLabel, FormInput, SubmitBtn, ErrorMessage } from '../../components/ContactForm/ContactForm.styled';
 import { PageWrapper, PageTitle, IconWrapper } from 'pages/HomePage/HomePage.styled';
 import { useLogInMutation } from 'redux/AuthOperations/AuthOperations';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const [logIn] = useLogInMutation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
     const handleSubmit = (values, {resetForm}) => {
       
       logIn(values);
       resetForm();
-      navigate('/contacts');
+      // navigate('/contacts');
 
 }
 

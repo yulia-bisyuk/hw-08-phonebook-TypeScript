@@ -9,7 +9,7 @@ import { getToken } from '../../redux/AuthSlice/AuthSlice';
 const ContactForm = () => {
   const token = useSelector(getToken);
   const [addContact] = useAddContactMutation();
-  const {data: contacts} = useGetContactsQuery();
+  const {data: contacts} = useGetContactsQuery(token, { skip: token === null });
 
   const handleSubmit = (values, { resetForm }) => {
     
@@ -25,11 +25,6 @@ const ContactForm = () => {
 
 
     addContact({ token: token, name: values.name, number: values.number});
-    // { id: id, 
-    //         name: contactName,
-    //         phone: contactNumber
-    //     }
-   
 
    resetForm();
 

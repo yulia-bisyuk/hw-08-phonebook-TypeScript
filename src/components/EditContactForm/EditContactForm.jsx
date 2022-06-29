@@ -9,15 +9,13 @@ import { getToken } from 'redux/AuthSlice/AuthSlice';
 
 const EditContactForm = ({ id, onClose }) => {
     const [editContact] = useEditContactMutation();
-    const { data: contacts } = useGetContactsQuery();
-    // const { data: contact } = useGetContactByIdQuery(id);
     const token = useSelector(getToken);
+
+    const { data: contacts } = useGetContactsQuery(token, { skip: token === null });
     const contact = contacts.find(contact => contact.id === id);
 
 
     const handleSubmit = (values) => {
-        console.log('Edit submit');
-        console.log(values);
         
         editContact({
             contactId: id, 

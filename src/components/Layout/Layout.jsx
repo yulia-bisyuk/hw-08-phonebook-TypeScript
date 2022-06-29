@@ -1,10 +1,10 @@
 import { Wrapper } from "./Layout.styled";
-import { Outlet } from "react-router-dom";
+// import { Outlet } from "react-router-dom";
 
-const Layout = () => {
+const Layout = ({children}) => {
     return (
-    <Wrapper>
-      <Outlet />
+      <Wrapper>
+        {children}
     </Wrapper>
   );
 };

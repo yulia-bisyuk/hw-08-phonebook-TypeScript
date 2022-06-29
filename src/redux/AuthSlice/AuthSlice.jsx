@@ -7,21 +7,26 @@ const initialState = {
     user: { name: null, email: null },
     token: null,
     isLoggedIn: false,
+    // isFetchingCurrentUser: false,
 };
 
 export const AuthSlice = createSlice({
 
-        name: 'auth',
+    name: 'auth',
 
     initialState: initialState,
         
     extraReducers: function (builder) {
             
         builder
+    //         .addCase('authApi/executeQuery/pending', (state, _) => {
+    //             state.isFetchingCurrentUser = true;
+    //   })
              .addMatcher(
                  authApi.endpoints.logIn.matchFulfilled
                  || authApi.endpoints.registration.matchFulfilled,
             (state, action) => {
+                
             state.user = action.payload.user;
             state.token = action.payload.token;
             state.isLoggedIn = true;
@@ -30,20 +35,19 @@ export const AuthSlice = createSlice({
             .addMatcher(
             authApi.endpoints.logOut.matchFulfilled,
             (state, _ ) => {
-        //   state = initialState; чому так не працює???
           
             state.user = { name: null, email: null };
             state.token = null;
             state.isLoggedIn = false;
             }
         )
-    //     .addMatcher(
-    //         authApi.endpoints.fetchCurrentUser.matchFulfilled,
-    //         (state, action ) => {
+        .addMatcher(
+            authApi.endpoints.fetchCurrentUser.matchFulfilled,
+            (state, action ) => {
        
-    //         state.user = action.payload;
-    //         state.isLoggedIn = true;
-    //   })
+            state.user = action.payload;
+            state.isLoggedIn = true;
+      })
     
         }
     }
@@ -52,6 +56,7 @@ export const AuthSlice = createSlice({
 const persistConfig = {
     key: 'auth',
     storage,
+    whitelist: ['token'],
 };
 
 export const persistedAuthReducer = persistReducer(persistConfig, AuthSlice.reducer)
@@ -62,3 +67,4 @@ export const { addUser, logInUser } = AuthSlice.actions;
 export const getUserName = (state) => state.auth.user.name; 
 export const getIsLoggedIn = (state) => state.auth.isLoggedIn; 
 export const getToken = (state) => state.auth.token;
+export const getIsFetchingCurrentUser = (state) => state.auth.isFetchingCurrentUser;
