@@ -19,8 +19,18 @@ export const AuthSlice = createSlice({
             
         builder
              .addMatcher(
-                 authApi.endpoints.logIn.matchFulfilled
-                 || authApi.endpoints.registration.matchFulfilled,
+                 authApi.endpoints.logIn.matchFulfilled,
+
+            (state, action) => {
+                
+            state.user = action.payload.user;
+            state.token = action.payload.token;
+            state.isLoggedIn = true;
+      }
+        )
+            .addMatcher(
+                 authApi.endpoints.registration.matchFulfilled,
+            
             (state, action) => {
                 
             state.user = action.payload.user;
