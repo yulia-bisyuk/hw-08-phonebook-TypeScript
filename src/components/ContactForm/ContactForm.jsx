@@ -13,20 +13,14 @@ const ContactForm = () => {
 
   const handleSubmit = (values, { resetForm }) => {
     
-    
     if (contacts.some(contact => contact.name.toLowerCase() === values.name.toLowerCase()))
     {
       resetForm();
       return alert(`${values.name} is already in contacts`);
     }
-    console.log('addContact');
-    console.log(values);
-    console.log(token);
-
-
+    
     addContact({ token: token, name: values.name, number: values.number});
-
-   resetForm();
+    resetForm();
 
   };
 

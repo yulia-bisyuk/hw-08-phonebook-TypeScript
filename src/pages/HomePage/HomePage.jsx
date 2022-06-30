@@ -1,10 +1,8 @@
-
 import { ThemeProvider } from 'styled-components';
 import theme from 'constants/theme';
 import { MdContactPhone } from 'react-icons/md';
 import { FaUserCheck, FaUserPlus } from 'react-icons/fa';
 import { IconContext } from "react-icons";
-
 import { PageWrapper, InvitationTitle, PageTitle, AuthLink, IconWrapper, Text } from './HomePage.styled';
 
 const HomePage = () => {

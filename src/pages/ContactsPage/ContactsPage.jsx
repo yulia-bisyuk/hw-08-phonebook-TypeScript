@@ -17,12 +17,8 @@ import { useGetContactsQuery } from '../../redux/ContactsOperations/ContactsOper
 
 const ContactsPage = () => {
 
-  
   const token = useSelector(getToken);
   const isLoggedIn = useSelector(getIsLoggedIn);
-  console.log(isLoggedIn);
-
-    
   const {
     data: contacts,
     isFetching,

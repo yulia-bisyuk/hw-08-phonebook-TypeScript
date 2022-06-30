@@ -4,7 +4,6 @@ import { getIsLoggedIn } from "redux/AuthSlice/AuthSlice";
 
 export default function PrivateRoute({ children }) {
     const isLoggedIn = useSelector(getIsLoggedIn);
-     console.log(isLoggedIn);
     
    return (isLoggedIn ? children : <Navigate to="/" />)
 

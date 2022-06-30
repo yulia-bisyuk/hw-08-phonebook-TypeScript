@@ -7,7 +7,6 @@ const initialState = {
     user: { name: null, email: null },
     token: null,
     isLoggedIn: false,
-    // isFetchingCurrentUser: false,
 };
 
 export const AuthSlice = createSlice({
@@ -19,9 +18,6 @@ export const AuthSlice = createSlice({
     extraReducers: function (builder) {
             
         builder
-    //         .addCase('authApi/executeQuery/pending', (state, _) => {
-    //             state.isFetchingCurrentUser = true;
-    //   })
              .addMatcher(
                  authApi.endpoints.logIn.matchFulfilled
                  || authApi.endpoints.registration.matchFulfilled,
@@ -56,7 +52,7 @@ export const AuthSlice = createSlice({
 const persistConfig = {
     key: 'auth',
     storage,
-    whitelist: ['token'],
+    blacklist: ['user'],
 };
 
 export const persistedAuthReducer = persistReducer(persistConfig, AuthSlice.reducer)
@@ -67,4 +63,3 @@ export const { addUser, logInUser } = AuthSlice.actions;
 export const getUserName = (state) => state.auth.user.name; 
 export const getIsLoggedIn = (state) => state.auth.isLoggedIn; 
 export const getToken = (state) => state.auth.token;
-export const getIsFetchingCurrentUser = (state) => state.auth.isFetchingCurrentUser;

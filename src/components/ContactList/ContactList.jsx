@@ -9,11 +9,9 @@ const ContactList = () => {
 
   const filter = useSelector(getFilterValue);
   const token = useSelector(getToken);
-
-    const {
-    data: contacts, isSuccess } = useGetContactsQuery(token, { skip: token === null });
+  const { data: contacts, isSuccess } = useGetContactsQuery(token, { skip: token === null });
     
-    const getFilteredContacts = () => {
+  const getFilteredContacts = () => {
   
     if (isSuccess)
       return contacts.filter(contact =>

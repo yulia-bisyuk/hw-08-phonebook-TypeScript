@@ -7,24 +7,22 @@ import { IconContext } from "react-icons";
 import { FormLabel, FormInput, SubmitBtn, ErrorMessage } from '../../components/ContactForm/ContactForm.styled';
 import { PageWrapper, PageTitle, IconWrapper } from 'pages/HomePage/HomePage.styled';
 import { useLogInMutation } from 'redux/AuthOperations/AuthOperations';
-// import { useNavigate } from 'react-router-dom';
+import AuthRedirect from 'components/AuthRedirect';
 
 const LoginPage = () => {
-  const [logIn] = useLogInMutation();
-  // const navigate = useNavigate();
 
-    const handleSubmit = (values, {resetForm}) => {
+  const [logIn] = useLogInMutation();
+  
+  const handleSubmit = (values, {resetForm}) => {
       
       logIn(values);
       resetForm();
-      // navigate('/contacts');
-
 }
 
     return (
         <PageWrapper>
             <ThemeProvider theme={theme}>
-                <PageTitle>Login</PageTitle>
+                <PageTitle>Log in</PageTitle>
                 <IconWrapper>
                 <IconContext.Provider value={{ color: '#0c005a', size: "30px" }}>
                     <FaUserCheck />
@@ -65,14 +63,13 @@ const LoginPage = () => {
            ) : null}
           </FormLabel>
 
-                            <SubmitBtn type="submit">Login</SubmitBtn>
+                            <SubmitBtn type="submit">Log in</SubmitBtn>
  
-                    </form>
-                    
+                    </form>    
       )
       }
-      
-                </Formik>
+          </Formik>
+           <AuthRedirect page='/register' text='Register'/>
                 </ThemeProvider>
 </PageWrapper>
     )

@@ -1,9 +1,9 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import BeatLoader from 'react-spinners/BeatLoader';
 import { Note } from 'pages/ContactsPage/ContactsPage.styled';
 import { useSelector } from 'react-redux';
-import { getIsFetchingCurrentUser, getIsLoggedIn, getToken } from 'redux/AuthSlice/AuthSlice';
+import { getToken } from 'redux/AuthSlice/AuthSlice';
 import { useFetchCurrentUserQuery } from '../../redux/AuthOperations/AuthOperations';
 import PrivateRoute from 'components/PrivateRoute';
 import PublicRoute from 'components/PublicRoute';
@@ -16,22 +16,15 @@ const Layout = lazy(() => import('components/Layout'));
 
 export const App = () => {
 
-  // const isLoggedIn = useSelector(getIsLoggedIn);
-  // console.log(isLoggedIn);
-
   const token = useSelector(getToken);
-  // const isFetchingCurrentUser = useSelector(getIsFetchingCurrentUser);
+  console.log(token)
 
+//після логаута токена немає, але фетч спрацьовує і б*є помилку в консолі
   useFetchCurrentUserQuery(token, { skip: token === null });
   
- 
-  
-
   return (
     
-  <>
-      {/* { isFetchingCurrentUser ? (<h1> Показываем React Skeleton</h1 >) : ( */}
-                 <Suspense fallback={<Note><BeatLoader color='#0c005a' loading={true} size={20} margin={2} /></Note>}>
+      <Suspense fallback={<Note><BeatLoader color='#0c005a' loading={true} size={20} margin={2} /></Note>}>
         <Layout>
 
          <Routes>
@@ -79,10 +72,7 @@ export const App = () => {
           </Routes>
           
         </Layout>
-        </Suspense>
-      {/* )} */}
+      </Suspense>
        
-    </>
-
   );
 };

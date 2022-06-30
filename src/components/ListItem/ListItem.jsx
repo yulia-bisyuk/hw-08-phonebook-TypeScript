@@ -5,7 +5,6 @@ import { ImCancelCircle } from 'react-icons/im';
 import { FiEdit } from 'react-icons/fi';
 import { IconContext } from "react-icons";
 import { ActionButton, LiItem, ButtonsWrapper } from './ListItem.styled';
-
 import { useDeleteContactMutation } from '../../redux/ContactsOperations/ContactsOperations';
 import { getToken } from 'redux/AuthSlice/AuthSlice';
 import { useSelector } from 'react-redux';
@@ -16,10 +15,6 @@ const ListItem = ({ id, name, phone }) => {
     const [deleteContact] = useDeleteContactMutation();
     const token = useSelector(getToken);
    
-    const handleClose = () => {
-        setEditFormIsOpen(false);
-    }
-
     return (
         <>
         <LiItem
@@ -47,7 +42,7 @@ const ListItem = ({ id, name, phone }) => {
             {editFormIsOpen &&
               <div>
                     <EditContactForm
-                        onClose={handleClose}
+                        onClose={() => setEditFormIsOpen(false)}
                         id={id}
                     />
                    </div>

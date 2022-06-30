@@ -6,22 +6,19 @@ import { FaUserPlus } from 'react-icons/fa';
 import { IconContext } from "react-icons";
 import { FormLabel, FormInput, SubmitBtn, ErrorMessage } from '../../components/ContactForm/ContactForm.styled';
 import { PageWrapper, PageTitle, IconWrapper } from 'pages/HomePage/HomePage.styled';
+import AuthRedirect from 'components/AuthRedirect';
 import { useRegistrationMutation } from '../../redux/AuthOperations/AuthOperations';
+
 
 const RegistrationPage = () => {
   const [registerUser] = useRegistrationMutation();
  
     const handleSubmit = (values, { resetForm }) => {
-        console.log('values');
-      console.log(values);
      
       registerUser(values);
-      
       resetForm();
       
     };
-
-
 
     return (
         <PageWrapper>
@@ -80,14 +77,14 @@ const RegistrationPage = () => {
            ) : null}
           </FormLabel>
 
-                            <SubmitBtn type="submit">Register</SubmitBtn>
+            <SubmitBtn type="submit">Register</SubmitBtn>
  
                     </form>
-                    
       )
       }
-      
-                </Formik>
+          </Formik>
+          
+         <AuthRedirect page='/login' text='Log in'/>
                 </ThemeProvider>
 </PageWrapper>
     )

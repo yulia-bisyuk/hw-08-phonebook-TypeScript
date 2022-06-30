@@ -5,7 +5,6 @@ export const FilterSlice = createSlice({
         name: 'filter',
 
     initialState: {
-
         value: '',
         },
         
