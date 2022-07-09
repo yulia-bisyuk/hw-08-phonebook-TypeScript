@@ -1,42 +1,49 @@
 import { Formik } from 'formik';
 import { contactValidationSchema } from 'constants/contactValidationSchema';
-import { useSelector } from "react-redux";
-import { FormLabel, FormInput, SubmitBtn, ErrorMessage } from './ContactForm.styled';
-import { useAddContactMutation, useGetContactsQuery } from '../../redux/ContactsOperations/ContactsOperations';
-import { getToken } from '../../redux/AuthSlice/AuthSlice';
-
+import { useSelector } from 'react-redux';
+import {
+  FormLabel,
+  FormInput,
+  SubmitBtn,
+  ErrorMessage,
+} from './ContactForm.styled';
+import {
+  useAddContactMutation,
+  useGetContactsQuery,
+} from '../../redux/contacts/contactsApi';
+import { getToken } from '../../redux/authentication/authSelectors';
 
 const ContactForm = () => {
   const token = useSelector(getToken);
   const [addContact] = useAddContactMutation();
-  const {data: contacts} = useGetContactsQuery(token, { skip: token === null });
+  const { data: contacts } = useGetContactsQuery(token, {
+    skip: token === null,
+  });
 
   const handleSubmit = (values, { resetForm }) => {
-    
-    if (contacts.some(contact => contact.name.toLowerCase() === values.name.toLowerCase()))
-    {
+    if (
+      contacts.some(
+        contact => contact.name.toLowerCase() === values.name.toLowerCase()
+      )
+    ) {
       resetForm();
       return alert(`${values.name} is already in contacts`);
     }
-    
-    addContact({ token: token, name: values.name, number: values.number});
-    resetForm();
 
+    addContact({ token: token, name: values.name, number: values.number });
+    resetForm();
   };
 
   return (
-    
     <Formik
       initialValues={{ name: '', number: '' }}
       validationSchema={contactValidationSchema}
       onSubmit={(values, actions) => handleSubmit(values, actions)}
     >
       {formik => (
-
         <form onSubmit={formik.handleSubmit}>
-
-        <FormLabel htmlFor="name">
-          Name
+          <FormLabel>
+            Name
             <FormInput
               id="name"
               name="name"
@@ -44,31 +51,27 @@ const ContactForm = () => {
               {...formik.getFieldProps('name')}
             />
             {formik.touched.name && formik.errors.name ? (
-             <ErrorMessage>{formik.errors.name}</ErrorMessage>
-           ) : null}
+              <ErrorMessage>{formik.errors.name}</ErrorMessage>
+            ) : null}
           </FormLabel>
-          
-          <FormLabel htmlFor="number">
+
+          <FormLabel>
             Number
-              <FormInput
-                id="number"
-                name="number"
-                type="text"
-                {...formik.getFieldProps('number')}
+            <FormInput
+              id="number"
+              name="number"
+              type="text"
+              {...formik.getFieldProps('number')}
             />
             {formik.touched.number && formik.errors.number ? (
-             <ErrorMessage>{formik.errors.number}</ErrorMessage>
-           ) : null}
+              <ErrorMessage>{formik.errors.number}</ErrorMessage>
+            ) : null}
           </FormLabel>
 
-        <SubmitBtn type="submit">Add contact</SubmitBtn>
- 
-      </form>
-      )
-      }
-      
-      </Formik>
-
+          <SubmitBtn type="submit">Add contact</SubmitBtn>
+        </form>
+      )}
+    </Formik>
   );
 };
 

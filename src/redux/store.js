@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { FilterSlice } from './FilterSlice/FilterSlice';
-import { contactsApi } from './ContactsOperations/ContactsOperations';
-import { authApi } from './AuthOperations/AuthOperations';
-import { persistedAuthReducer } from './AuthSlice/AuthSlice';
+import { filterSlice } from './filter/filterSlice';
+import { contactsApi } from './contacts/contactsApi';
+import { authApi } from './authentication/authApi';
+import { persistedAuthReducer } from './authentication/authSlice';
 import {
   persistStore,
   FLUSH,
@@ -15,7 +15,7 @@ import {
 
 export const store = configureStore({
   reducer: {
-    filter: FilterSlice.reducer,
+    filter: filterSlice.reducer,
     [contactsApi.reducerPath]: contactsApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
     auth: persistedAuthReducer,

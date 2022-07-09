@@ -6,8 +6,8 @@ const LiItem = styled.li`
   display: flex;
   justify-content: space-between;
   font-weight: 500;
-    font-size: 16px;
-    color: ${props => props.theme.darkBlue};
+  font-size: 16px;
+  color: ${props => props.theme.darkBlue};
 
   &:not(:last-child) {
     margin-bottom: 8px;
@@ -20,11 +20,11 @@ const ActionButton = styled.button`
   border: none;
   cursor: pointer;
   :not(:first-child) {
-margin-left: 8px;
+    margin-left: 8px;
   }
 `;
 const ButtonsWrapper = styled.div`
   display: flex;
-`
+`;
 
 export { ActionButton, LiItem, ButtonsWrapper };

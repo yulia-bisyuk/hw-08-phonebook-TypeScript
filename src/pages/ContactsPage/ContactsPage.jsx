@@ -4,56 +4,58 @@ import ContactList from 'components/ContactList';
 import UserMenu from 'components/UserMenu';
 import { ThemeProvider } from 'styled-components';
 import theme from '../../constants/theme';
-import BeatLoader from "react-spinners/BeatLoader";
+import BeatLoader from 'react-spinners/BeatLoader';
 import {
   PhonebookTitle,
   ContactsTitle,
   Section,
   Note,
 } from './ContactsPage.styled';
-import { getIsLoggedIn, getToken } from '../../redux/AuthSlice/AuthSlice';
-import { useSelector } from "react-redux";
-import { useGetContactsQuery } from '../../redux/ContactsOperations/ContactsOperations';
+import { getIsLoggedIn, getToken } from '../../redux/authentication/authSelectors';
+import { useSelector } from 'react-redux';
+import { useGetContactsQuery } from '../../redux/contacts/contactsApi';
 
 const ContactsPage = () => {
-
   const token = useSelector(getToken);
   const isLoggedIn = useSelector(getIsLoggedIn);
   const {
     data: contacts,
     isFetching,
     isError,
-    isSuccess } = useGetContactsQuery(token, { skip: token === null });
-
+    isSuccess,
+  } = useGetContactsQuery(token, { skip: token === null });
 
   return (
-      <ThemeProvider theme={theme}>
-          <>
+    <ThemeProvider theme={theme}>
+      <>
         <Section>
-          {isLoggedIn &&
-            <UserMenu />
-          }
+          {isLoggedIn && <UserMenu />}
           <PhonebookTitle>Phonebook</PhonebookTitle>
-          <ContactForm/>
+          <ContactForm />
         </Section>
 
         <Section>
           <ContactsTitle>Contacts</ContactsTitle>
           <Filter />
-          
-          {isError && <Note>Oops! Something went wrong...</Note>} 
-          
-          {isFetching && <Note><BeatLoader
-            color={theme.darkBlue} loading={true} size={10} margin={2} />
-          </Note>} 
-      
-          {isSuccess && contacts.length === 0
-            && <Note>No contacts here</Note>}
-          
-          {isSuccess && <ContactList/>} 
-        
+
+          {isError && <Note>Oops! Something went wrong...</Note>}
+
+          {isFetching && (
+            <Note>
+              <BeatLoader
+                color={theme.darkBlue}
+                loading={true}
+                size={10}
+                margin={2}
+              />
+            </Note>
+          )}
+
+          {isSuccess && contacts.length === 0 && <Note>No contacts here</Note>}
+
+          {isSuccess && <ContactList />}
         </Section>
-              </>
+      </>
     </ThemeProvider>
   );
 };

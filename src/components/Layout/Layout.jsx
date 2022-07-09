@@ -1,11 +1,7 @@
-import { Wrapper } from "./Layout.styled";
+import { Wrapper } from './Layout.styled';
 
-const Layout = ({children}) => {
-    return (
-      <Wrapper>
-        {children}
-    </Wrapper>
-  );
+const Layout = ({ children }) => {
+  return <Wrapper>{children}</Wrapper>;
 };
 
 export default Layout;
