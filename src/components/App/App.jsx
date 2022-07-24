@@ -17,6 +17,8 @@ const Layout = lazy(() => import('components/Layout'));
 export const App = () => {
   const token = useSelector(getToken);
 
+  //після логауту робиться ще один фетч за користувачем, хоча токена вже нема,
+  // і { skip: token === null } чомусь не працює. Не можу вирішити цю проблему((
   useFetchCurrentUserQuery(token, { skip: token === null });
 
   return (
