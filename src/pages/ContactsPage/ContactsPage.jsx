@@ -2,8 +2,6 @@ import ContactForm from 'components/ContactForm';
 import Filter from 'components/Filter';
 import ContactList from 'components/ContactList';
 import UserMenu from 'components/UserMenu';
-import { ThemeProvider } from 'styled-components';
-import theme from '../../constants/theme';
 import BeatLoader from 'react-spinners/BeatLoader';
 import {
   PhonebookTitle,
@@ -11,7 +9,10 @@ import {
   Section,
   Note,
 } from './ContactsPage.styled';
-import { getIsLoggedIn, getToken } from '../../redux/authentication/authSelectors';
+import {
+  getIsLoggedIn,
+  getToken,
+} from '../../redux/authentication/authSelectors';
 import { useSelector } from 'react-redux';
 import { useGetContactsQuery } from '../../redux/contacts/contactsApi';
 
@@ -26,37 +27,30 @@ const ContactsPage = () => {
   } = useGetContactsQuery(token, { skip: token === null });
 
   return (
-    <ThemeProvider theme={theme}>
-      <>
-        <Section>
-          {isLoggedIn && <UserMenu />}
-          <PhonebookTitle>Phonebook</PhonebookTitle>
-          <ContactForm />
-        </Section>
+    <>
+      <Section>
+        {isLoggedIn && <UserMenu />}
+        <PhonebookTitle>Phonebook</PhonebookTitle>
+        <ContactForm />
+      </Section>
 
-        <Section>
-          <ContactsTitle>Contacts</ContactsTitle>
-          <Filter />
+      <Section>
+        <ContactsTitle>Contacts</ContactsTitle>
+        <Filter />
 
-          {isError && <Note>Oops! Something went wrong...</Note>}
+        {isError && <Note>Oops! Something went wrong...</Note>}
 
-          {isFetching && (
-            <Note>
-              <BeatLoader
-                color={theme.darkBlue}
-                loading={true}
-                size={10}
-                margin={2}
-              />
-            </Note>
-          )}
+        {isFetching && (
+          <Note>
+            <BeatLoader color={'#0c005a'} loading={true} size={10} margin={2} />
+          </Note>
+        )}
 
-          {isSuccess && contacts.length === 0 && <Note>No contacts here</Note>}
+        {isSuccess && contacts.length === 0 && <Note>No contacts here</Note>}
 
-          {isSuccess && <ContactList />}
-        </Section>
-      </>
-    </ThemeProvider>
+        {isSuccess && <ContactList />}
+      </Section>
+    </>
   );
 };
 

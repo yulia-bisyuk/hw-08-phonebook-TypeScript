@@ -50,9 +50,9 @@ const ContactForm = () => {
               type="text"
               {...formik.getFieldProps('name')}
             />
-            {formik.touched.name && formik.errors.name ? (
+            {formik.touched.name && formik.errors.name && (
               <ErrorMessage>{formik.errors.name}</ErrorMessage>
-            ) : null}
+            )}
           </FormLabel>
 
           <FormLabel>
@@ -63,9 +63,9 @@ const ContactForm = () => {
               type="text"
               {...formik.getFieldProps('number')}
             />
-            {formik.touched.number && formik.errors.number ? (
+            {formik.touched.number && formik.errors.number && (
               <ErrorMessage>{formik.errors.number}</ErrorMessage>
-            ) : null}
+            )}
           </FormLabel>
 
           <SubmitBtn type="submit">Add contact</SubmitBtn>
