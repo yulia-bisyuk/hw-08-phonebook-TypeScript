@@ -1,3 +1,7 @@
+// interface ITheme {
+//   [color: string]: string;
+// }
+
 const theme = {
   darkBlue: '#0c005a',
   red: '#bc2525',
@@ -7,3 +11,5 @@ const theme = {
 };
 
 export default theme;
+
+// install TS, configure lite-server, change file extensions to .ts
