@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { RootState } from 'redux/store';
 
 export const contactsApi = createApi({
   reducerPath: 'contactsApi',
@@ -6,7 +7,7 @@ export const contactsApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://connections-api.herokuapp.com',
     prepareHeaders: (headers, { getState }) => {
-      const token = getState().auth.token;
+      const token = (getState() as RootState).auth.token;
       if (token) {
         headers.set('authorization', `Bearer ${token}`);
       }
@@ -36,7 +37,7 @@ export const contactsApi = createApi({
     }),
 
     deleteContact: build.mutation({
-      query: ({ contactId, token }) => ({
+      query: ({ contactId }) => ({
         url: `contacts/${contactId}`,
         method: 'DELETE',
       }),

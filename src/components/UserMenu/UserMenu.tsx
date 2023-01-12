@@ -1,11 +1,15 @@
 import { WelcomeText, UserEmail, LogOutBtn } from './UserMenu.styled';
 import { useLogOutMutation } from 'redux/authentication/authApi';
-import { getUserName, getToken } from '../../redux/authentication/authSelectors';
-import { useSelector } from 'react-redux';
+import {
+  getUserName,
+  getToken,
+} from '../../redux/authentication/authSelectors';
+// import { useSelector } from 'react-redux';
+import { useAppSelector } from 'components/App/hooks';
 
 const UserMenu = () => {
-  const name = useSelector(getUserName);
-  const token = useSelector(getToken);
+  const name = useAppSelector(getUserName);
+  const token = useAppSelector(getToken);
   const [logOut] = useLogOutMutation();
 
   return (

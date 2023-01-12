@@ -1,6 +1,6 @@
 import { Formik } from 'formik';
 import { contactValidationSchema } from 'constants/contactValidationSchema';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from 'components/App/hooks';
 import {
   FormLabel,
   FormInput,
@@ -14,7 +14,7 @@ import {
 import { getToken } from '../../redux/authentication/authSelectors';
 
 const ContactForm = () => {
-  const token = useSelector(getToken);
+  const token = useAppSelector(getToken);
   const [addContact] = useAddContactMutation();
   const { data: contacts } = useGetContactsQuery(token, {
     skip: token === null,

@@ -1,8 +1,9 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { skipToken } from '@reduxjs/toolkit/query/react';
 import BeatLoader from 'react-spinners/BeatLoader';
 import { Note } from 'pages/ContactsPage/ContactsPage.styled';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from './hooks';
 import { getToken } from 'redux/authentication/authSelectors';
 import { useFetchCurrentUserQuery } from 'redux/authentication/authApi';
 import PrivateRoute from 'components/PrivateRoute';
@@ -15,9 +16,9 @@ const RegistrationPage = lazy(() => import('pages/RegistrationPage'));
 const Layout = lazy(() => import('components/Layout'));
 
 export const App = () => {
-  const token = useSelector(getToken);
+  const token = useAppSelector(getToken);
 
-  useFetchCurrentUserQuery(token, { skip: () => !token });
+  useFetchCurrentUserQuery(token ?? skipToken);
 
   return (
     <Suspense
@@ -30,7 +31,6 @@ export const App = () => {
       <Layout>
         <Routes>
           <Route
-            exact
             path="/"
             element={
               <PublicRoute>
@@ -40,7 +40,6 @@ export const App = () => {
           />
 
           <Route
-            exact
             path="register"
             element={
               <PublicRoute restricted navigateTo="/contacts">
@@ -50,7 +49,6 @@ export const App = () => {
           />
 
           <Route
-            exact
             path="login"
             element={
               <PublicRoute restricted navigateTo="/contacts">

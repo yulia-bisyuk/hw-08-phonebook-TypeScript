@@ -1,10 +1,11 @@
 import React from 'react';
 import { FormLabel, FormInput } from '../ContactForm/ContactForm.styled';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
+import { useAppDispatch } from 'components/App/hooks';
 import { change } from 'redux/filter/filterSlice';
 
 const Filter = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const onChange = e => {
     dispatch(change(e.currentTarget.value));

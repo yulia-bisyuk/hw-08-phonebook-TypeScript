@@ -1,13 +1,14 @@
 import { useGetContactsQuery } from '../../redux/contacts/contactsApi';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
+import { useAppSelector } from 'components/App/hooks';
 import { getFilterValue } from 'redux/filter/filterSlice';
 import LiItem from './ContactListItem';
 import { List } from './ContactList.styled';
 import { getToken } from 'redux/authentication/authSelectors';
 
 const ContactList = () => {
-  const filter = useSelector(getFilterValue);
-  const token = useSelector(getToken);
+  const filter = useAppSelector(getFilterValue);
+  const token = useAppSelector(getToken);
   const { data: contacts, isSuccess } = useGetContactsQuery(token, {
     skip: token === null,
   });
@@ -25,7 +26,7 @@ const ContactList = () => {
     <List>
       {filteredContacts &&
         filteredContacts.map(({ id, name, number }) => (
-          <LiItem key={id} id={id} name={name} phone={number}/>
+          <LiItem key={id} id={id} name={name} phone={number} />
         ))}
     </List>
   );

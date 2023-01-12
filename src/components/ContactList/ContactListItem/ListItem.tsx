@@ -7,12 +7,13 @@ import { IconContext } from 'react-icons';
 import { ActionButton, LiItem, ButtonsWrapper } from './ListItem.styled';
 import { useDeleteContactMutation } from '../../../redux/contacts/contactsApi';
 import { getToken } from 'redux/authentication/authSelectors';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
+import { useAppSelector } from 'components/App/hooks';
 
 const ListItem = ({ id, name, phone }) => {
   const [editFormIsOpen, setEditFormIsOpen] = useState(false);
   const [deleteContact] = useDeleteContactMutation();
-  const token = useSelector(getToken);
+  const token = useAppSelector(getToken);
 
   return (
     <>

@@ -14,12 +14,13 @@ import {
   ConfirmButton,
 } from './EditContactForm.styled';
 import { ErrorMessage } from '../ContactForm/ContactForm.styled';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
+import { useAppSelector } from 'components/App/hooks';
 import { getToken } from 'redux/authentication/authSelectors';
 
 const EditContactForm = ({ id, onClose }) => {
   const [editContact] = useEditContactMutation();
-  const token = useSelector(getToken);
+  const token = useAppSelector(getToken);
 
   const { data: contacts } = useGetContactsQuery(token, {
     skip: token === null,
@@ -47,7 +48,7 @@ const EditContactForm = ({ id, onClose }) => {
         {formik => (
           <form onSubmit={formik.handleSubmit} autoComplete="off">
             <InputsWrapper>
-              <FormLabel >
+              <FormLabel>
                 Name
                 <FormInput
                   id="name"
@@ -62,7 +63,7 @@ const EditContactForm = ({ id, onClose }) => {
                 ) : null}
               </div>
 
-              <FormLabel >
+              <FormLabel>
                 Number
                 <FormInput
                   id="number"
