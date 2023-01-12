@@ -16,7 +16,7 @@ export type UserQueryArgs = {
 export interface UserState extends UserResultType {}
 
 export type Contact = {
-  contactId: string;
+  id: string;
   token: string | null;
   name: string;
   number: string;

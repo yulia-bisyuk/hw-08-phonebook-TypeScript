@@ -1,5 +1,5 @@
 // import { useSelector } from 'react-redux';
-import { useAppSelector } from 'components/App/hooks';
+import { useAppSelector } from 'hooks';
 import { Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getIsLoggedIn } from 'redux/authentication/authSelectors';

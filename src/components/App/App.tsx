@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { skipToken } from '@reduxjs/toolkit/query/react';
 import BeatLoader from 'react-spinners/BeatLoader';
 import { Note } from 'pages/ContactsPage/ContactsPage.styled';
-import { useAppSelector } from './hooks';
+import { useAppSelector } from '../../hooks';
 import { getToken } from 'redux/authentication/authSelectors';
 import { useFetchCurrentUserQuery } from 'redux/authentication/authApi';
 import PrivateRoute from 'components/PrivateRoute';
@@ -15,7 +15,7 @@ const ContactsPage = lazy(() => import('pages/ContactsPage'));
 const RegistrationPage = lazy(() => import('pages/RegistrationPage'));
 const Layout = lazy(() => import('components/Layout'));
 
-export const App = () => {
+export const App: React.FC = () => {
   const token = useAppSelector(getToken);
 
   useFetchCurrentUserQuery(token ?? skipToken);

@@ -14,7 +14,7 @@ import {
   getToken,
 } from '../../redux/authentication/authSelectors';
 // import { useSelector } from 'react-redux';
-import { useAppSelector } from 'components/App/hooks';
+import { useAppSelector } from 'hooks';
 import { useGetContactsQuery } from '../../redux/contacts/contactsApi';
 
 const ContactsPage = () => {

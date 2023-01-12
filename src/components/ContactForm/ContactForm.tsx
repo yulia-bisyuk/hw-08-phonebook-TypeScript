@@ -1,6 +1,6 @@
 import { Formik } from 'formik';
 import { contactValidationSchema } from 'constants/contactValidationSchema';
-import { useAppSelector } from 'components/App/hooks';
+import { useAppSelector } from 'hooks';
 import {
   FormLabel,
   FormInput,
@@ -12,18 +12,30 @@ import {
   useGetContactsQuery,
 } from '../../redux/contacts/contactsApi';
 import { getToken } from '../../redux/authentication/authSelectors';
+import { Contact } from 'types/types';
 
-const ContactForm = () => {
+export interface FormValues {
+  name: string;
+  number: string;
+}
+
+export type ResetForm = {
+  resetForm: () => void;
+};
+
+const ContactForm: React.FC = () => {
+  const initialValues: FormValues = { name: '', number: '' };
   const token = useAppSelector(getToken);
   const [addContact] = useAddContactMutation();
   const { data: contacts } = useGetContactsQuery(token, {
     skip: token === null,
   });
 
-  const handleSubmit = (values, { resetForm }) => {
+  const handleSubmit = (values: FormValues, { resetForm }: ResetForm) => {
     if (
       contacts.some(
-        contact => contact.name.toLowerCase() === values.name.toLowerCase()
+        (contact: Contact) =>
+          contact.name.toLowerCase() === values.name.toLowerCase()
       )
     ) {
       resetForm();
@@ -36,7 +48,7 @@ const ContactForm = () => {
 
   return (
     <Formik
-      initialValues={{ name: '', number: '' }}
+      initialValues={initialValues}
       validationSchema={contactValidationSchema}
       onSubmit={(values, actions) => handleSubmit(values, actions)}
     >
@@ -46,7 +58,7 @@ const ContactForm = () => {
             Name
             <FormInput
               id="name"
-              name="name"
+              // name="name"
               type="text"
               {...formik.getFieldProps('name')}
             />
@@ -59,7 +71,7 @@ const ContactForm = () => {
             Number
             <FormInput
               id="number"
-              name="number"
+              // name="number"
               type="text"
               {...formik.getFieldProps('number')}
             />

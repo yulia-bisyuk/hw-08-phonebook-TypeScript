@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import { contactValidationSchema } from 'constants/contactValidationSchema';
 import {
@@ -15,19 +14,30 @@ import {
 } from './EditContactForm.styled';
 import { ErrorMessage } from '../ContactForm/ContactForm.styled';
 // import { useSelector } from 'react-redux';
-import { useAppSelector } from 'components/App/hooks';
+import { useAppSelector } from '../../hooks';
 import { getToken } from 'redux/authentication/authSelectors';
+import { FormValues } from 'components/ContactForm/ContactForm';
+import { Contact } from 'types/types';
 
-const EditContactForm = ({ id, onClose }) => {
+interface EditContactFormProps {
+  id: string;
+  onClose: () => void;
+}
+
+const EditContactForm: React.FC<EditContactFormProps> = ({ id, onClose }) => {
   const [editContact] = useEditContactMutation();
   const token = useAppSelector(getToken);
 
   const { data: contacts } = useGetContactsQuery(token, {
     skip: token === null,
   });
-  const contact = contacts.find(contact => contact.id === id);
+  const contact = contacts.find((contact: Contact) => contact.id === id);
+  const initialValues: FormValues = {
+    name: contact.name,
+    number: contact.number,
+  };
 
-  const handleSubmit = values => {
+  const handleSubmit = (values: FormValues) => {
     editContact({
       contactId: id,
       token: token,
@@ -41,7 +51,7 @@ const EditContactForm = ({ id, onClose }) => {
   return (
     contact && (
       <Formik
-        initialValues={{ name: contact.name, number: contact.number }}
+        initialValues={initialValues}
         validationSchema={contactValidationSchema}
         onSubmit={values => handleSubmit(values)}
       >
@@ -52,7 +62,7 @@ const EditContactForm = ({ id, onClose }) => {
                 Name
                 <FormInput
                   id="name"
-                  name="name"
+                  // name="name"
                   type="text"
                   {...formik.getFieldProps('name')}
                 />
@@ -67,7 +77,7 @@ const EditContactForm = ({ id, onClose }) => {
                 Number
                 <FormInput
                   id="number"
-                  name="number"
+                  // name="number"
                   type="text"
                   {...formik.getFieldProps('number')}
                 />
@@ -91,11 +101,6 @@ const EditContactForm = ({ id, onClose }) => {
       </Formik>
     )
   );
-};
-
-EditContactForm.propTypes = {
-  id: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired,
 };
 
 export default EditContactForm;

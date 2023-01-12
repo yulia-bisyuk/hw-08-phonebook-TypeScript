@@ -8,7 +8,7 @@ import { ActionButton, LiItem, ButtonsWrapper } from './ListItem.styled';
 import { useDeleteContactMutation } from '../../../redux/contacts/contactsApi';
 import { getToken } from 'redux/authentication/authSelectors';
 // import { useSelector } from 'react-redux';
-import { useAppSelector } from 'components/App/hooks';
+import { useAppSelector } from 'hooks';
 
 const ListItem = ({ id, name, phone }) => {
   const [editFormIsOpen, setEditFormIsOpen] = useState(false);

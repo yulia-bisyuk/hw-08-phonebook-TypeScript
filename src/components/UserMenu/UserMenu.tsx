@@ -5,7 +5,7 @@ import {
   getToken,
 } from '../../redux/authentication/authSelectors';
 // import { useSelector } from 'react-redux';
-import { useAppSelector } from 'components/App/hooks';
+import { useAppSelector } from 'hooks';
 
 const UserMenu = () => {
   const name = useAppSelector(getUserName);

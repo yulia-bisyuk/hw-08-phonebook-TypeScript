@@ -1,6 +1,11 @@
 import { RedirectLink, Text } from './AuthRedirect.styled';
 
-const AuthRedirect = ({ page, text }) => {
+interface AuthRedirectProps {
+  page: string;
+  text: string;
+}
+
+const AuthRedirect: React.FC<AuthRedirectProps> = ({ page, text }) => {
   return (
     <>
       <Text>or</Text>

@@ -17,11 +17,17 @@ import {
 } from 'pages/HomePage/HomePage.styled';
 import { useLogInMutation } from 'redux/authentication/authApi';
 import AuthRedirect from 'components/AuthRedirect';
+import { ResetForm } from 'components/ContactForm/ContactForm';
 
-const LoginPage = () => {
+interface LoginFormValues {
+  email: string;
+  password: string;
+}
+
+const LoginPage: React.FC = () => {
   const [logIn] = useLogInMutation();
-
-  const handleSubmit = (values, { resetForm }) => {
+  const initialValues: LoginFormValues = { email: '', password: '' };
+  const handleSubmit = (values: LoginFormValues, { resetForm }: ResetForm) => {
     logIn(values);
     resetForm();
   };
@@ -36,7 +42,7 @@ const LoginPage = () => {
           </IconContext.Provider>
         </IconWrapper>
         <Formik
-          initialValues={{ email: '', password: '' }}
+          initialValues={initialValues}
           validationSchema={userLoginValidationSchema}
           onSubmit={(values, actions) => handleSubmit(values, actions)}
         >
@@ -46,7 +52,7 @@ const LoginPage = () => {
                 Email
                 <FormInput
                   id="email"
-                  name="email"
+                  // name="email"
                   type="email"
                   {...formik.getFieldProps('email')}
                 />
@@ -55,11 +61,11 @@ const LoginPage = () => {
                 ) : null}
               </FormLabel>
 
-              <FormLabel >
+              <FormLabel>
                 Password
                 <FormInput
                   id="password"
-                  name="password"
+                  // name="password"
                   type="password"
                   {...formik.getFieldProps('password')}
                 />

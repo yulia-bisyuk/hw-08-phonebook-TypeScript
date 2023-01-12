@@ -17,11 +17,26 @@ import {
 } from 'pages/HomePage/HomePage.styled';
 import AuthRedirect from 'components/AuthRedirect';
 import { useRegistrationMutation } from '../../redux/authentication/authApi';
+import { ResetForm } from 'components/ContactForm/ContactForm';
 
-const RegistrationPage = () => {
+interface RegistrationFormValues {
+  name: string;
+  email: string;
+  password: string;
+}
+
+const RegistrationPage: React.FC = () => {
   const [registerUser] = useRegistrationMutation();
+  const initialValues: RegistrationFormValues = {
+    name: '',
+    email: '',
+    password: '',
+  };
 
-  const handleSubmit = (values, { resetForm }) => {
+  const handleSubmit = (
+    values: RegistrationFormValues,
+    { resetForm }: ResetForm
+  ) => {
     registerUser(values);
     resetForm();
   };
@@ -36,7 +51,7 @@ const RegistrationPage = () => {
           </IconContext.Provider>
         </IconWrapper>
         <Formik
-          initialValues={{ name: '', email: '', password: '' }}
+          initialValues={initialValues}
           validationSchema={userValidationSchema}
           onSubmit={(values, actions) => handleSubmit(values, actions)}
         >
@@ -46,7 +61,7 @@ const RegistrationPage = () => {
                 Name
                 <FormInput
                   id="name"
-                  name="name"
+                  // name="name"
                   type="text"
                   {...formik.getFieldProps('name')}
                 />
@@ -59,7 +74,7 @@ const RegistrationPage = () => {
                 Email
                 <FormInput
                   id="email"
-                  name="email"
+                  // name="email"
                   type="email"
                   {...formik.getFieldProps('email')}
                 />
@@ -72,7 +87,7 @@ const RegistrationPage = () => {
                 Password
                 <FormInput
                   id="password"
-                  name="password"
+                  // name="password"
                   type="password"
                   {...formik.getFieldProps('password')}
                 />
