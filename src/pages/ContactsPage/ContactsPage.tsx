@@ -13,11 +13,10 @@ import {
   getIsLoggedIn,
   getToken,
 } from '../../redux/authentication/authSelectors';
-// import { useSelector } from 'react-redux';
 import { useAppSelector } from 'hooks';
 import { useGetContactsQuery } from '../../redux/contacts/contactsApi';
 
-const ContactsPage = () => {
+const ContactsPage: React.FC = () => {
   const token = useAppSelector(getToken);
   const isLoggedIn = useAppSelector(getIsLoggedIn);
   const {

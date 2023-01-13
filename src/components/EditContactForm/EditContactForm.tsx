@@ -13,11 +13,9 @@ import {
   ConfirmButton,
 } from './EditContactForm.styled';
 import { ErrorMessage } from '../ContactForm/ContactForm.styled';
-// import { useSelector } from 'react-redux';
 import { useAppSelector } from '../../hooks';
 import { getToken } from 'redux/authentication/authSelectors';
-import { FormValues } from 'components/ContactForm/ContactForm';
-import { Contact } from 'types/types';
+import { Contact, FormValues } from 'types/types';
 
 interface EditContactFormProps {
   id: string;

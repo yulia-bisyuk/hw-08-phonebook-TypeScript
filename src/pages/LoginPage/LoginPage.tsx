@@ -17,12 +17,7 @@ import {
 } from 'pages/HomePage/HomePage.styled';
 import { useLogInMutation } from 'redux/authentication/authApi';
 import AuthRedirect from 'components/AuthRedirect';
-import { ResetForm } from 'components/ContactForm/ContactForm';
-
-interface LoginFormValues {
-  email: string;
-  password: string;
-}
+import { ResetForm, LoginFormValues } from 'types/types';
 
 const LoginPage: React.FC = () => {
   const [logIn] = useLogInMutation();

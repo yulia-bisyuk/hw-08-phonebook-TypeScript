@@ -13,15 +13,7 @@ import {
 } from '../../redux/contacts/contactsApi';
 import { getToken } from '../../redux/authentication/authSelectors';
 import { Contact } from 'types/types';
-
-export interface FormValues {
-  name: string;
-  number: string;
-}
-
-export type ResetForm = {
-  resetForm: () => void;
-};
+import { FormValues, ResetForm } from 'types/types';
 
 const ContactForm: React.FC = () => {
   const initialValues: FormValues = { name: '', number: '' };
@@ -58,7 +50,6 @@ const ContactForm: React.FC = () => {
             Name
             <FormInput
               id="name"
-              // name="name"
               type="text"
               {...formik.getFieldProps('name')}
             />
@@ -71,7 +62,6 @@ const ContactForm: React.FC = () => {
             Number
             <FormInput
               id="number"
-              // name="number"
               type="text"
               {...formik.getFieldProps('number')}
             />

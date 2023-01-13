@@ -4,10 +4,9 @@ import {
   getUserName,
   getToken,
 } from '../../redux/authentication/authSelectors';
-// import { useSelector } from 'react-redux';
 import { useAppSelector } from 'hooks';
 
-const UserMenu = () => {
+const UserMenu: React.FC = () => {
   const name = useAppSelector(getUserName);
   const token = useAppSelector(getToken);
   const [logOut] = useLogOutMutation();

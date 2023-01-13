@@ -17,13 +17,7 @@ import {
 } from 'pages/HomePage/HomePage.styled';
 import AuthRedirect from 'components/AuthRedirect';
 import { useRegistrationMutation } from '../../redux/authentication/authApi';
-import { ResetForm } from 'components/ContactForm/ContactForm';
-
-interface RegistrationFormValues {
-  name: string;
-  email: string;
-  password: string;
-}
+import { ResetForm, RegistrationFormValues } from 'types/types';
 
 const RegistrationPage: React.FC = () => {
   const [registerUser] = useRegistrationMutation();

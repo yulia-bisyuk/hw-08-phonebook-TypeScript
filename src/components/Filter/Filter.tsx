@@ -1,13 +1,12 @@
 import React from 'react';
 import { FormLabel, FormInput } from '../ContactForm/ContactForm.styled';
-// import { useDispatch } from 'react-redux';
 import { useAppDispatch } from 'hooks';
 import { change } from 'redux/filter/filterSlice';
 
-const Filter = () => {
+const Filter: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const onChange = e => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(change(e.currentTarget.value));
   };
 

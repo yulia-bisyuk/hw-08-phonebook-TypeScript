@@ -6,7 +6,7 @@ import { UserState } from 'types/types';
 
 const initialState = {
   user: { name: null, email: null },
-  token: null,
+  token: '',
   isLoggedIn: false,
 } as UserState;
 
@@ -38,7 +38,7 @@ export const authSlice = createSlice({
       )
       .addMatcher(authApi.endpoints.logOut.matchFulfilled, (state, _) => {
         state.user = { name: null, email: null };
-        state.token = null;
+        state.token = '';
         state.isLoggedIn = false;
       })
       .addMatcher(
@@ -61,5 +61,3 @@ export const persistedAuthReducer = persistReducer(
   persistConfig,
   authSlice.reducer
 );
-
-// export const { addUser, logInUser } = authSlice.actions;

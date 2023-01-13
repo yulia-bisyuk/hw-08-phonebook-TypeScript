@@ -1,6 +1,10 @@
 import { Wrapper } from './Layout.styled';
 
-const Layout = ({ children }) => {
+export interface LayoutProps {
+  children: JSX.Element;
+}
+
+const Layout: React.FC<LayoutProps> = ({ children }) => {
   return <Wrapper>{children}</Wrapper>;
 };
 
